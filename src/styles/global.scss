@@ -1,0 +1,409 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: $bg;
+  font-family: $font;
+  font-optical-sizing: auto;
+  color: $text;
+}
+
+#app {
+  display: flex;
+}
+
+/* LOGIN PAGE */
+#login-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: $marge * 5;
+  align-items: center;
+}
+
+#login-box {
+  max-width: 500px;
+  width: 500px;
+}
+
+/* SIDEBAR */
+
+aside {
+  background-color: $card;
+  @include shadow;
+  padding: 0 $marge * 8 $marge * 4;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  color: $primary;
+}
+
+#app-title {
+  font-weight: 900;
+}
+
+nav,
+#user-menu {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: $marge * 4;
+  }
+
+  .navlink {
+    font-size: 1.25rem;
+    @include trans;
+    padding: $marge * 2 $marge * 4;
+    width: 100%;
+    border-left: 5px solid transparent;
+
+    &.active,
+    &:hover {
+      border-color: $primary;
+      color: $primary;
+    }
+  }
+}
+
+#user-menu {
+  margin-top: auto;
+}
+
+#toaster {
+  position: absolute;
+  z-index: 10;
+  bottom: $marge*4;
+  left: $marge*4;
+  right: $marge*4;
+  display: flex;
+  flex-direction: column;
+  gap: $marge*4;
+}
+
+.toast {
+  @include card;
+
+  &.success {
+    .toast-header {
+      background-color: $success;
+      color: $card;
+      font-weight: 900;
+    }
+
+    .toast-body {
+      background-color: lighten($success, 45%);
+    }
+  }
+
+  &.warning {
+    .toast-header {
+      background-color: $warning;
+      color: $card;
+      font-weight: 900;
+    }
+
+    .toast-body {
+      background-color: lighten($warning, 45%);
+    }
+  }
+
+  &.danger {
+    .toast-header {
+      background-color: $danger;
+      color: $card;
+      font-weight: 900;
+    }
+
+    .toast-body {
+      background-color: lighten($danger, 45%);
+    }
+  }
+}
+
+.toast-header,
+.toast-body {
+  padding: $marge*4;
+}
+
+.toast-body {
+  line-height: 1.25;
+}
+
+/* MAIN CONTENT */
+
+main {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0 $marge * 8;
+}
+
+.zone {
+  background-color: $bg;
+}
+
+/* HEADER */
+
+#header-zone {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+  justify-content: space-between;
+}
+
+.header-part {
+  display: flex;
+  align-items: center;
+}
+
+#header-left {
+  .separator-left {
+    &:before {
+      border-color: $text;
+    }
+  }
+}
+
+#header-right {
+  color: $textAlt;
+}
+
+#current-date,
+#current-time {
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
+  &:after {
+    border-color: $textAlt;
+  }
+}
+
+#display-name {
+  display: flex;
+  align-items: center;
+  gap: $marge;
+
+  svg {
+    position: relative;
+    top: -2px;
+  }
+}
+
+/* TOOLBAR */
+
+#toolbar-zone {
+  height: 75px;
+  position: sticky;
+  z-index: 1;
+  top: 90px;
+}
+
+#toolbar {
+  @include card;
+  display: flex;
+  align-items: stretch;
+  height: 50px;
+  overflow: hidden;
+
+  .form-group {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  [type="text"],
+  select {
+    border: none;
+    border-radius: 0;
+  }
+
+  button {
+    border-radius: 0;
+
+    &:hover {
+      background-color: $primary;
+      color: $card;
+    }
+  }
+}
+
+#left-tools,
+#right-tools {
+  flex: 1;
+  display: flex;
+
+  .with-icon {
+    border: none;
+    border-radius: 0;
+  }
+
+  [type="text"],
+  select {
+    padding-left: $marge*4;
+    padding-right: $marge*4;
+  }
+
+}
+
+#left-tools {
+  .with-icon {
+    border-right: 1px solid $bg;
+  }
+}
+
+#right-tools {
+  justify-content: flex-end;
+
+  button {
+    border-left: 1px solid $bg;
+  }
+}
+
+/* DATATABLE */
+.data-table {
+  tr {
+    overflow: hidden;
+  }
+
+  tbody {
+
+    tr,
+    td {
+      padding: 0
+    }
+
+
+    [type="text"] {
+      width: 100%;
+      background-color: transparent;
+      border-radius: 0;
+
+      &[readonly] {
+        border: 1px solid transparent;
+      }
+    }
+
+    button {
+      height: 100%;
+      width: 100%;
+      border-radius: 0;
+
+      &.delete-row:hover {
+        color: $card;
+        background-color: $danger
+      }
+    }
+  }
+}
+
+.cell-form {
+  position: relative;
+
+  .edit-icon {
+    position: absolute;
+    right: $marge*4;
+    top: 50%;
+    opacity: 0;
+    @include trans;
+  }
+
+  svg {
+    transform: translateY(calc(-50% - 2px))
+  }
+
+  &:hover {
+    .edit-icon {
+      opacity: 1;
+    }
+  }
+}
+
+/* PROFIL PAGE */
+#user-form-wrapper {
+  @include card;
+  padding: $marge * 10;
+}
+
+/* TASKS PAGE */
+#task-manager {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: $marge*4;
+  column-gap: $marge*8;
+
+}
+
+.task-column-header {
+  @include card;
+}
+
+.task-column-header {
+  padding: $marge*4;
+}
+
+.task-card {
+  .card-body {
+    padding: $marge*4;
+    line-height: 1.25;
+    color: $textAlt;
+  }
+
+  .card-footer {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: $marge;
+      text-decoration: none;
+      color: $textAlt;
+    }
+  }
+
+}
+
+.priority-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    position: relative;
+    top: -1px;
+  }
+
+  &.success {
+    color: $success;
+  }
+
+  &.warning {
+    color: $warning;
+  }
+
+  &.danger {
+    color: $danger;
+  }
+}

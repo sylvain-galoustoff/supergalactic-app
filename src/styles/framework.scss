@@ -1,0 +1,354 @@
+*::selection {
+  background-color: $primary;
+  color: $card;
+}
+
+h1,
+.h1,
+h2,
+.h2 {
+  font-size: 1.5rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.25rem;
+}
+
+.black {
+  font-weight: 900;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.no-pointer {
+  cursor: auto;
+}
+
+.help {
+  color: $textAlt;
+  font-size: .85rem;
+}
+
+.separator-right {
+  &:after {
+    content: "";
+    border-right: 1px solid transparent;
+    padding-right: $marge*4;
+    margin-right: $marge*4;
+  }
+}
+
+.separator-left {
+  &:before {
+    content: "";
+    border-left: 1px solid transparent;
+    padding-left: $marge*4;
+    margin-left: $marge*4;
+  }
+}
+
+/* BUTTONS */
+button,
+a.button {
+  border: none;
+  display: flex;
+  gap: $marge*2;
+  align-items: center;
+  background-color: transparent;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: $marge*2 $marge*4;
+  font-family: $font;
+  font-size: 1rem;
+  font-weight: 900;
+  color: $text;
+  border-radius: $corner;
+  cursor: pointer;
+  @include trans;
+
+  svg {
+    position: relative;
+    top: -2px;
+  }
+
+  &.primary {
+    background-color: $primary;
+    color: $card;
+
+    &:hover {
+      background-color: darken($primary, 5%);
+    }
+  }
+
+  &.success {
+    background-color: $success;
+    color: $card;
+
+    &:hover {
+      background-color: darken($success, 5%);
+    }
+  }
+
+  &.warning {
+    background-color: $warning;
+    color: $card;
+
+    &:hover {
+      background-color: darken($warning, 5%);
+    }
+  }
+
+  &.danger {
+    background-color: $danger;
+    color: $card;
+
+    &:hover {
+      background-color: darken($danger, 5%);
+    }
+  }
+
+  &.disabled {
+    background-color: $bg;
+    color: $textAlt;
+    cursor: not-allowed;
+  }
+}
+
+/* FORMS */
+fieldset {
+  border: 1px solid $bg;
+  padding: $marge*4;
+  border-radius: $corner;
+  display: flex;
+  flex-direction: column;
+  gap: $marge*4;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $marge;
+}
+
+.with-icon {
+  width: 100%;
+  display: flex;
+  border: 1px solid $bg;
+  border-radius: $corner;
+
+  [type="text"],
+  [type="email"],
+  select {
+    flex: 1;
+    border: none;
+    padding: $marge*4 0;
+  }
+
+  &:focus-within {
+    border-color: $primary;
+  }
+}
+
+.input-icon-right,
+.input-icon-left {
+  display: flex;
+  align-items: center;
+  padding: 0 $marge*4;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: $marge*2;
+}
+
+label {
+  color: $textAlt;
+}
+
+[type="text"],
+[type="email"],
+[type="password"],
+select {
+  font-size: 1rem;
+  color: $text;
+  padding: $marge*4;
+  border: 1px solid $bg;
+  border-radius: $corner;
+  @include trans;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+
+  &[readonly] {
+    cursor: pointer;
+
+    &.no-pointer {
+      cursor: default;
+    }
+  }
+}
+
+/* TABLE */
+table {
+  width: 100%;
+}
+
+thead {
+  position: sticky;
+  top: 165px;
+}
+
+th {
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+  color: $textAlt;
+  padding: 0 $marge*4;
+}
+
+tr {
+  display: grid;
+  padding-bottom: $marge*4;
+  background-color: $bg;
+}
+
+tbody {
+  tr {
+    padding: $marge*4 0;
+  }
+
+  tr:first-child {
+    border-top-left-radius: $corner;
+    border-top-right-radius: $corner;
+  }
+
+  tr:last-child {
+    border-bottom-left-radius: $corner;
+    border-bottom-right-radius: $corner;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $card;
+  }
+
+  tr:nth-child(even) {
+    background-color: $cardAlt;
+  }
+}
+
+
+/* CARDS */
+.card {
+  @include card;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: $marge*2;
+  padding: $marge * 4;
+  border-bottom: 1px solid $bg;
+
+  svg {
+    position: relative;
+    top: -3px;
+  }
+}
+
+.card-content {
+  padding: $marge * 4;
+}
+
+.card-footer {
+  border-top: 1px solid $bg;
+  padding: $marge*4;
+}
+
+/* MODAL */
+#modal {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $bgOverlay;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: $marge*5;
+  animation: overlay .15s ease-out;
+}
+
+@keyframes overlay {
+  from {
+    background-color: transparent;
+    backdrop-filter: blur(0)
+  }
+
+  to {
+    background-color: $bgOverlay;
+    backdrop-filter: blur(5px)
+  }
+}
+
+#box {
+  width: 500px;
+  transform: translateY(-100px);
+  opacity: 0;
+  animation: box .15s ease-out forwards;
+}
+
+@keyframes box {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#box-content {
+  display: flex;
+  flex-direction: column;
+  gap: $marge * 4;
+}
+
+#close-box {
+  margin-left: auto;
+  cursor: pointer;
+  @include trans;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+/* LOADER */
+.spinner {
+  animation: spinner 1s infinite;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

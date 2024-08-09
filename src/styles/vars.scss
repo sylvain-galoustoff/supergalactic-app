@@ -1,0 +1,34 @@
+$primary: #8767E4;
+$danger: #CC6666;
+$warning: #dfbc5c;
+$success: #33CC59;
+$bg: #E4E2E9;
+$card: #FFFFFF;
+$cardAlt: #F4F4F4;
+$bgOverlay: rgba(#E4E2E9, .6);
+$text: #6A6284;
+$textAlt: #878198;
+
+$marge: 4px;
+$corner: 4px;
+$font: "Overpass",
+  sans-serif;
+
+@mixin dev($color: red, $width: 1px) {
+  border: $width solid $color;
+}
+
+@mixin trans($time: .15s) {
+  transition: all $time ease-out;
+}
+
+@mixin shadow() {
+  box-shadow: 0px 0px 10px 0px rgba(9, 37, 42, 0.1);
+}
+
+@mixin card($color: $card) {
+  background-color: $color;
+  @include shadow;
+  border-radius: $corner;
+  overflow: hidden;
+}

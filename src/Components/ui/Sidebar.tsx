@@ -8,10 +8,30 @@ import {
   IoPowerOutline,
   IoInformationCircleOutline,
 } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 function Sidebar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userLogOut = async () => {
+    signOut(auth).then(() => {
+      dispatch(
+        setUser({
+          uid: "",
+          email: "",
+          displayName: "",
+        })
+      );
+      navigate("/login");
+    });
+  };
+
   return (
     <aside>
       <Logo />
@@ -64,7 +84,7 @@ function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <button className="navlink">
+            <button className="navlink" onClick={userLogOut}>
               <IoPowerOutline />
               Déconnexion
             </button>

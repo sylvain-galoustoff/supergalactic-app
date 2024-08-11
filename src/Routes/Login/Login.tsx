@@ -3,6 +3,10 @@ import { IoLogInOutline, IoMailOutline, IoKeyOutline } from "react-icons/io5";
 import { InputField, Button } from "simplegems";
 import Logo from "../../Components/ui/Logo";
 import { logUser } from "../../api/userApi";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../../redux/userSlice";
+import { UserType } from "../../models/user";
 
 function Login() {
   const emptyForm = {
@@ -11,6 +15,8 @@ function Login() {
   };
 
   const [form, setForm] = useState(emptyForm);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const updateForm = (value: string, target: string) => {
     setForm((prevState) => ({
@@ -22,14 +28,13 @@ function Login() {
   const submitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await logUser(form.usermail, form.userpass);
-    console.log(response);
 
-    if (response?.success) {
-      console.log(response);
-      // dispatch(setUser(user));
-      // navigate("/");
+    if (response.success) {
+      const userPayload = response.payload as UserType;
+      dispatch(setUser(userPayload));
+      navigate("/");
     } else {
-      console.error(response?.message);
+      console.error(response);
     }
   };
 

@@ -1,6 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.ts";
-import { response } from "./response.ts";
 
 export const logUser = async (usermail: string, userpass: string) => {
   try {
@@ -10,8 +9,14 @@ export const logUser = async (usermail: string, userpass: string) => {
       email: user.user.email,
       displayName: user.user.displayName,
     };
-    return response(true, currentUser, "");
+    return {
+      success: true,
+      payload: currentUser,
+    };
   } catch (error) {
-    console.error(error);
+    return {
+      success: false,
+      payload: error,
+    };
   }
 };

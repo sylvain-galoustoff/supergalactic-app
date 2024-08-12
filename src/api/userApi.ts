@@ -4,6 +4,7 @@ import { auth } from "../firebase.ts";
 export const logUser = async (usermail: string, userpass: string) => {
   try {
     const user = await signInWithEmailAndPassword(auth, usermail, userpass);
+
     const currentUser = {
       uid: user.user.uid,
       email: user.user.email,

@@ -1,20 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserType } from "../models/user";
 
-type User = {
-  uid: string;
-  email: string;
-  displayName?: string;
+const initialState: UserType = {
+  uid: "",
+  email: "",
+  displayName: "",
 };
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    uid: "",
-    email: "",
-    displayName: "",
-  } as User,
+  initialState,
   reducers: {
-    setUser: (_, action: PayloadAction<User>) => {
+    setUser: (_, action: PayloadAction<UserType>) => {
       return action.payload;
     },
     setDisplayName: (state, action: PayloadAction<string>) => {

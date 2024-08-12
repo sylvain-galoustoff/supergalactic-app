@@ -1,4 +1,4 @@
-import PageHeader from "../../Components/ui/PageHeader";
+import PageHeader from "../../Components/ui/PageHeader/PageHeader";
 
 function Clients() {
   return (

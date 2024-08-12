@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import {
   IoBusinessOutline,
   IoCallOutline,
@@ -8,9 +8,10 @@ import {
   IoPersonAddOutline,
   IoPersonOutline,
 } from "react-icons/io5";
-import { Button, InputField } from "simplegems";
+import { Button, InputField, useToast } from "simplegems";
 import { ClientType } from "../../models/client";
 import { useModalContext } from "../../context/ModalContext";
+import { registerClient } from "../../api/clientApi";
 
 function AddClient() {
   const resetForm: ClientType = {
@@ -23,13 +24,29 @@ function AddClient() {
   };
 
   const { setBox } = useModalContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState(resetForm);
+  const sendToast = useToast();
 
   const updateForm = (value: string, target: string) => {
     setForm((prevState) => ({
       ...prevState,
       [target]: value,
     }));
+  };
+
+  const submitClient = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const response = await registerClient(form);
+    if (response.success) {
+      setIsLoading(false);
+      closeModal();
+      sendToast("success", `${form.clientName} enregistré dans vos données client.`);
+    } else {
+      setIsLoading(false);
+      sendToast("danger", response.message);
+    }
   };
 
   const closeModal = () => {
@@ -43,7 +60,7 @@ function AddClient() {
         <IoPersonAddOutline /> Ajouter un client{" "}
         <IoCloseOutline id="close-box" onClick={closeModal} />
       </h2>
-      <form>
+      <form onSubmit={submitClient}>
         <div className="card-content" id="box-content">
           <InputField
             id="client-name"
@@ -93,6 +110,7 @@ function AddClient() {
             label="Valider"
             variant="primary"
             iconBefore={<IoCheckmarkOutline />}
+            isLoading={isLoading}
           />
         </div>
       </form>

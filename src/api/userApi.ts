@@ -1,7 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.ts";
+import { apiResponseType } from "../models/apiResponse.ts";
 
-export const logUser = async (usermail: string, userpass: string) => {
+export const logUser = async (
+  usermail: string,
+  userpass: string
+): Promise<apiResponseType> => {
   try {
     const user = await signInWithEmailAndPassword(auth, usermail, userpass);
 

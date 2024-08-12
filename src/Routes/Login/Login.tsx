@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { IoLogInOutline, IoMailOutline, IoKeyOutline } from "react-icons/io5";
-import { InputField, Button } from "simplegems";
+import { InputField, Button, useToast } from "simplegems";
 import Logo from "../../Components/ui/Logo";
 import { logUser } from "../../api/userApi";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ function Login() {
   const [form, setForm] = useState(emptyForm);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sendToast = useToast();
 
   const updateForm = (value: string, target: string) => {
     setForm((prevState) => ({
@@ -31,6 +32,12 @@ function Login() {
 
     if (response.success) {
       const userPayload = response.payload as UserType;
+      sendToast(
+        "success",
+        `Vous êtes connecté${
+          userPayload.displayName ? ` en tant que ${userPayload.displayName}.` : `.`
+        }`
+      );
       dispatch(setUser(userPayload));
       navigate("/");
     } else {

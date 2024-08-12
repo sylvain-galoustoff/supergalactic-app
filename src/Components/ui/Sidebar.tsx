@@ -14,10 +14,12 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
+import { useToast } from "simplegems";
 
 function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sendToast = useToast();
 
   const userLogOut = async () => {
     signOut(auth).then(() => {
@@ -29,6 +31,7 @@ function Sidebar() {
         })
       );
       navigate("/login");
+      sendToast("warning", "Vous êtes déconnecté.");
     });
   };
 

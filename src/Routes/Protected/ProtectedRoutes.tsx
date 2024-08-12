@@ -8,8 +8,6 @@ function ProtectedRoutes() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
-
       if (!user) {
         navigate("/login");
       }

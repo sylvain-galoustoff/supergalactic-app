@@ -1,5 +1,11 @@
+import PageHeader from "../../Components/ui/PageHeader";
+
 function Clients() {
-  return <main>Clients</main>;
+  return (
+    <main>
+      <PageHeader title="Clients" />
+    </main>
+  );
 }
 
 export default Clients;

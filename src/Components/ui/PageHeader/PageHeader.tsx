@@ -1,3 +1,5 @@
+import UserMenu from "./UserMenu";
+
 type PageHeaderProps = {
   title: string;
 };
@@ -8,7 +10,9 @@ function PageHeader({ title }: PageHeaderProps) {
       <div className="header-part" id="header-left">
         <h2 className="black">{title}</h2>
       </div>
-      <div className="header-part" id="header-right"></div>
+      <div className="header-part" id="header-right">
+        <UserMenu />
+      </div>
     </div>
   );
 }

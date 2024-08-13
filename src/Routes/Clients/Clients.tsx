@@ -17,6 +17,7 @@ function Clients() {
           />
         }
       />
+      <div className="zone" id="content-zone"></div>
     </main>
   );
 }

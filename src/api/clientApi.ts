@@ -1,7 +1,17 @@
 import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { ClientType } from "../models/client";
-import { db } from "../firebase";
+import { db } from "../firebase.ts";
 import { apiResponseType } from "../models/apiResponse";
+import { store } from "../redux/store.ts";
+import { storeClients } from "../redux/clientSlice.ts";
+
+export const observeClients = () => {
+  const unsubscribe = onSnapshot(collection(db, "clients"), (snapshot) => {
+    const data = snapshot.docs.map((doc) => doc.data() as ClientType);
+    store.dispatch(storeClients(data));
+  });
+  return unsubscribe;
+};
 
 export const registerClient = async (form: ClientType): Promise<apiResponseType> => {
   if (form.clientName) {

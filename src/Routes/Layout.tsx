@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Toaster, useToastsList } from "simplegems";
 import { useModalContext } from "../context/ModalContext";
+import { useDispatch } from "react-redux";
+import { observeClients } from "../api/clientApi";
 import Sidebar from "../Components/ui/Sidebar";
 import Modal from "../Components/ui/Modals/Modal";
 import Login from "./Login/Login";
@@ -11,6 +14,15 @@ import Clients from "./Clients/Clients";
 function Layout() {
   const { toastList, removeToast } = useToastsList();
   const { box } = useModalContext();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribeClients = observeClients();
+
+    return () => {
+      unsubscribeClients();
+    };
+  }, [dispatch]);
 
   return (
     <div id="app">

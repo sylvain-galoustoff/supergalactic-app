@@ -5,13 +5,12 @@ import Toolbar from "../../Components/ui/Toolbar";
 import AddClient from "./AddClient";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { DataTable, useToast } from "simplegems";
+import { DataSearch, DataTable, useToast } from "simplegems";
 import { ClientType } from "../../models/client";
-import { deleteClient } from "../../api/clientApi";
+import { deleteClient, updateClient } from "../../api/clientApi";
 
 function Clients() {
   const clientsData = useSelector((state: RootState) => state.clients);
-  console.log(clientsData);
 
   const sendToast = useToast();
   const clientsColumns = ["clientName", "contactName", "contactMail", "contactTel"];
@@ -31,10 +30,26 @@ function Clients() {
     }
   };
 
+  const updateField = async (value: { [key: string]: string }) => {
+    const response = await updateClient(value as Record<keyof ClientType, string>);
+    if (response.success) {
+      sendToast("success", response.message);
+    } else {
+      sendToast("danger", response.message);
+    }
+  };
+
+  const handleTerm = (term: string) => {
+    console.log(term);
+  };
+
   return (
     <main id="clients">
       <PageHeader title="Clients" />
       <Toolbar
+        left={
+          <DataSearch callback={handleTerm} data={clientsColumns} id="table-search" />
+        }
         right={
           <ModalButton
             label="Ajouter un client"
@@ -50,6 +65,7 @@ function Clients() {
           labels={clientsLabels}
           deleteButton
           onDelete={handleDelete}
+          onSubmitField={updateField}
         />
       </div>
     </main>

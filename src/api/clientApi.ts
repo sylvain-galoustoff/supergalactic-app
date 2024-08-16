@@ -1,4 +1,11 @@
-import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { ClientType } from "../models/client";
 import { db } from "../firebase.ts";
 import { apiResponseType } from "../models/apiResponse";
@@ -36,6 +43,24 @@ export const registerClient = async (form: ClientType): Promise<apiResponseType>
     return {
       success: false,
       message: `Le champ "Nom du client" est requis.`,
+    };
+  }
+};
+
+export const updateClient = async (payload: ClientType) => {
+  const docRef = doc(db, "clients", payload.id);
+
+  try {
+    await updateDoc(docRef, payload);
+    return {
+      success: true,
+      message: `le client ${payload.clientName} a été modifié.`,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "Echec de mise à jour du client " + payload.id,
     };
   }
 };

@@ -30,5 +30,4 @@ $font: "Overpass",
   background-color: $color;
   @include shadow;
   border-radius: $corner;
-  overflow: hidden;
 }

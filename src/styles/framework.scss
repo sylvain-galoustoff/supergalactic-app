@@ -198,6 +198,11 @@ select {
   }
 }
 
+/* TABLE */
+table {
+  @include card;
+}
+
 /* CARDS */
 .card {
   @include card;

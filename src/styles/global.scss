@@ -171,27 +171,14 @@ main {
 #toolbar-zone {
   height: 75px;
   position: sticky;
-  z-index: 1;
+  z-index: 10;
   top: 90px;
 }
 
 #toolbar {
+
   @include card;
   display: flex;
-  align-items: stretch;
-  height: 50px;
-  overflow: hidden;
-
-  .form-group {
-    flex: 1;
-    max-width: 50%;
-  }
-
-  [type="text"],
-  select {
-    border: none;
-    border-radius: 0;
-  }
 
   button {
     border-radius: 0;
@@ -206,54 +193,35 @@ main {
 #left-tools,
 #right-tools {
   flex: 1;
-  display: flex;
-
-  .with-icon {
-    border: none;
-    border-radius: 0;
-  }
-
-  [type="text"],
-  select {
-    padding-left: $marge*4;
-    padding-right: $marge*4;
-  }
-
-}
-
-#left-tools {
-  .with-icon {
-    border-right: 1px solid $bg;
-  }
 }
 
 #right-tools {
+  display: flex;
   justify-content: flex-end;
 
-  button {
-    border-left: 1px solid $bg;
+  button:last-child {
+    border-top-right-radius: $corner;
+    border-bottom-right-radius: $corner;
   }
 }
 
-.cell-form {
-  position: relative;
+#table-search-containner {
 
-  .edit-icon {
-    position: absolute;
-    right: $marge*4;
-    top: 50%;
-    opacity: 0;
-    @include trans;
+
+  ._inputGroup_1sp47_13 {
+    border: none;
+    border-right: 1px solid $bg;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
-  svg {
-    transform: translateY(calc(-50% - 2px))
+  ._results_hzhk4_9 {
+    @include shadow;
+    max-height: 192px;
   }
 
-  &:hover {
-    .edit-icon {
-      opacity: 1;
-    }
+  span {
+    padding: 16px
   }
 }
 
@@ -266,7 +234,6 @@ main {
 /* CLIENTS PAGE */
 #clients {
   #content-zone {
-    @include dev;
     height: calc(100% - 90px - 75px);
     overflow-y: auto;
   }

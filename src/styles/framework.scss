@@ -198,55 +198,6 @@ select {
   }
 }
 
-/* TABLE */
-table {
-  width: 100%;
-}
-
-thead {
-  position: sticky;
-  top: 165px;
-}
-
-th {
-  display: flex;
-  align-items: center;
-  font-weight: 900;
-  color: $textAlt;
-  padding: 0 $marge*4;
-}
-
-tr {
-  display: grid;
-  padding-bottom: $marge*4;
-  background-color: $bg;
-}
-
-tbody {
-  tr {
-    padding: $marge*4 0;
-  }
-
-  tr:first-child {
-    border-top-left-radius: $corner;
-    border-top-right-radius: $corner;
-  }
-
-  tr:last-child {
-    border-bottom-left-radius: $corner;
-    border-bottom-right-radius: $corner;
-  }
-
-  tr:nth-child(odd) {
-    background-color: $card;
-  }
-
-  tr:nth-child(even) {
-    background-color: $cardAlt;
-  }
-}
-
-
 /* CARDS */
 .card {
   @include card;

@@ -235,43 +235,6 @@ main {
   }
 }
 
-/* DATATABLE */
-.data-table {
-  tr {
-    overflow: hidden;
-  }
-
-  tbody {
-
-    tr,
-    td {
-      padding: 0
-    }
-
-
-    [type="text"] {
-      width: 100%;
-      background-color: transparent;
-      border-radius: 0;
-
-      &[readonly] {
-        border: 1px solid transparent;
-      }
-    }
-
-    button {
-      height: 100%;
-      width: 100%;
-      border-radius: 0;
-
-      &.delete-row:hover {
-        color: $card;
-        background-color: $danger
-      }
-    }
-  }
-}
-
 .cell-form {
   position: relative;
 
@@ -298,6 +261,15 @@ main {
 #user-form-wrapper {
   @include card;
   padding: $marge * 10;
+}
+
+/* CLIENTS PAGE */
+#clients {
+  #content-zone {
+    @include dev;
+    height: calc(100% - 90px - 75px);
+    overflow-y: auto;
+  }
 }
 
 /* TASKS PAGE */

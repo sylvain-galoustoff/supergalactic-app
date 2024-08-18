@@ -1,14 +1,14 @@
-import { IoPersonAddOutline } from "react-icons/io5";
+import { IoSparklesOutline } from "react-icons/io5";
 import ModalButton from "../../Components/ui/Modals/ModalButton";
 import PageHeader from "../../Components/ui/PageHeader/PageHeader";
 import Toolbar from "../../Components/ui/Toolbar";
-import AddClient from "../Clients/AddClient";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { DataSearch, DataTable, useToast } from "simplegems";
 import { ProjectType } from "../../models/project";
 import { useEffect, useState } from "react";
 import { deleteProject, updateProject } from "../../api/projectApi";
+import AddProject from "./AddProject";
 
 function Projects() {
   const projectsData = useSelector((state: RootState) => state.projects);
@@ -82,9 +82,9 @@ function Projects() {
         left={<DataSearch callback={handleTerm} data={termsPool} id="table-search" />}
         right={
           <ModalButton
-            label="Ajouter un client"
-            icon={<IoPersonAddOutline />}
-            modal={<AddClient />}
+            label="Ajouter un projet"
+            icon={<IoSparklesOutline />}
+            modal={<AddProject />}
           />
         }
       />

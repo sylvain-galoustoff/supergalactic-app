@@ -48,7 +48,7 @@ export const registerClient = async (form: ClientType): Promise<apiResponseType>
   }
 };
 
-export const updateClient = async (payload: ClientType) => {
+export const updateClient = async (payload: ClientType): Promise<apiResponseType> => {
   const docRef = doc(db, "clients", payload.id);
 
   try {
@@ -66,7 +66,7 @@ export const updateClient = async (payload: ClientType) => {
   }
 };
 
-export const deleteClient = async (client: ClientType) => {
+export const deleteClient = async (client: ClientType): Promise<apiResponseType> => {
   try {
     const docRef = doc(db, "clients", client.id);
     await deleteDoc(docRef);

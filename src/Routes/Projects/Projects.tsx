@@ -17,10 +17,10 @@ function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
   const sendToast = useToast();
 
-  const clientsColumns = ["projectName", "clientId"];
+  const clientsColumns = ["projectName", "clientName"];
   const clientsLabels = {
     projectName: "Nom du projet",
-    clientId: "Nom du client",
+    clientName: "Nom du client",
   };
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Projects() {
   useEffect(() => {
     function findTerms(term: string) {
       return projectsData.filter((item) => {
-        return ["projectName", "clientId"].some((key) => {
+        return ["projectName", "clientName"].some((key) => {
           return item[key as keyof ProjectType]
             .toLowerCase()
             .includes(term.toLowerCase());

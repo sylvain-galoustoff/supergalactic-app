@@ -16,7 +16,7 @@ function AddProject() {
   const resetForm: ProjectType = {
     uid: "",
     id: "",
-    clientId: "",
+    clientName: "",
     projectName: "",
   };
 
@@ -25,14 +25,11 @@ function AddProject() {
   const [form, setForm] = useState(resetForm);
   const sendToast = useToast();
   const clients = useSelector((state: RootState) => state.clients);
-  console.log(clients);
 
   const options = clients.map((client) => ({
     label: client.clientName,
-    value: client.id,
+    value: client.clientName,
   }));
-
-  console.log(options);
 
   const updateForm = (value: string, target: string) => {
     setForm((prevState) => ({
@@ -44,7 +41,7 @@ function AddProject() {
   const handleSelectChange = (value: { [key: string]: string }) => {
     setForm((prevState) => ({
       ...prevState,
-      clientId: value.value,
+      clientName: value.value,
     }));
   };
 

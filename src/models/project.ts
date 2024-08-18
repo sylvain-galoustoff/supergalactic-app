@@ -1,6 +1,6 @@
 export type ProjectType = {
   uid: string;
   id: string;
-  clientId: string;
+  clientName: string;
   projectName: string;
 };

@@ -25,7 +25,7 @@ function Clients() {
 
   useEffect(() => {
     const clientsDataValues: string[] = [];
-    clientsData.forEach(({ uid, id, ...client }) => {
+    clientsData.forEach(({ uid, id, contactMail, contactTel, ...client }) => {
       Object.values(client).map((value) => {
         if (value !== "") clientsDataValues.push(value);
       });

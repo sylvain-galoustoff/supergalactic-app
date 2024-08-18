@@ -214,14 +214,18 @@ main {
     border-bottom-right-radius: 0;
   }
 
-  ._results_hzhk4_9 {
-    @include shadow;
-    max-height: 192px;
+  #table-search-results-header {
+    padding: 0;
   }
 
   span {
     padding: 16px
   }
+}
+
+#table-search-results {
+  @include shadow;
+  max-height: 189px;
 }
 
 /* PROFIL PAGE */

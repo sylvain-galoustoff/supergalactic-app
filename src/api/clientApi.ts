@@ -25,6 +25,7 @@ export const registerClient = async (form: ClientType): Promise<apiResponseType>
     const newDocument = { ...form };
     const id = Date.now().toString();
     newDocument.id = id;
+    newDocument.uid = store.getState().user.uid;
 
     try {
       await setDoc(doc(db, "clients", id), newDocument);

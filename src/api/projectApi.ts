@@ -25,6 +25,7 @@ export const registerProject = async (form: ProjectType): Promise<apiResponseTyp
     const newDocument = { ...form };
     const id = Date.now().toString();
     newDocument.id = id;
+    newDocument.uid = store.getState().user.uid;
 
     try {
       await setDoc(doc(db, "projects", id), newDocument);

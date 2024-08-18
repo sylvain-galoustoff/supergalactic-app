@@ -1,9 +1,16 @@
 import { useState, FormEvent } from "react";
-import { IoSparklesOutline, IoCheckmarkOutline, IoCloseOutline } from "react-icons/io5";
-import { Button, InputField, useToast } from "simplegems";
+import {
+  IoSparklesOutline,
+  IoCheckmarkOutline,
+  IoCloseOutline,
+  IoBusinessOutline,
+} from "react-icons/io5";
+import { Button, InputField, useToast, Select } from "simplegems";
 import { ProjectType } from "../../models/project";
 import { useModalContext } from "../../context/ModalContext";
 import { registerProject } from "../../api/projectApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 function AddProject() {
   const resetForm: ProjectType = {
@@ -17,11 +24,27 @@ function AddProject() {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState(resetForm);
   const sendToast = useToast();
+  const clients = useSelector((state: RootState) => state.clients);
+  console.log(clients);
+
+  const options = clients.map((client) => ({
+    label: client.clientName,
+    value: client.id,
+  }));
+
+  console.log(options);
 
   const updateForm = (value: string, target: string) => {
     setForm((prevState) => ({
       ...prevState,
       [target]: value,
+    }));
+  };
+
+  const handleSelectChange = (value: { [key: string]: string }) => {
+    setForm((prevState) => ({
+      ...prevState,
+      clientId: value.value,
     }));
   };
 
@@ -59,6 +82,14 @@ function AddProject() {
             type="text"
             value={form.projectName}
             onChange={(value) => updateForm(value, "projectName")}
+          />
+          <Select
+            id="select-client"
+            placeholder="Faites votre choix"
+            label="Client du projet"
+            iconBefore={<IoBusinessOutline />}
+            data={options}
+            onChange={handleSelectChange}
           />
         </div>
         <div className="card-footer button-group">

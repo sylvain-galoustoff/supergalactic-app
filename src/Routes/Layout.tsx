@@ -10,6 +10,8 @@ import Login from "./Login/Login";
 import Dashboard from "./Dashboard/Dashboard";
 import ProtectedRoutes from "./Protected/ProtectedRoutes";
 import Clients from "./Clients/Clients";
+import Projects from "./Projects/Projects";
+import { observeProjects } from "../api/projectApi";
 
 function Layout() {
   const { toastList, removeToast } = useToastsList();
@@ -18,9 +20,11 @@ function Layout() {
 
   useEffect(() => {
     const unsubscribeClients = observeClients();
+    const unsubscribeProjects = observeProjects();
 
     return () => {
       unsubscribeClients();
+      unsubscribeProjects();
     };
   }, [dispatch]);
 
@@ -32,6 +36,7 @@ function Layout() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/clients" element={<Clients />} />
+          <Route path="/projets" element={<Projects />} />
         </Route>
       </Routes>
       <Toaster

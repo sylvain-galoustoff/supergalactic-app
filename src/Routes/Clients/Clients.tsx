@@ -12,7 +12,9 @@ import { useEffect, useState } from "react";
 
 function Clients() {
   const clientsData = useSelector((state: RootState) => state.clients);
+  const [filteredData, setFilteredData] = useState<ClientType[]>([]);
   const [termsPool, setTermsPool] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const sendToast = useToast();
 
   const clientsColumns = ["clientName", "contactName", "contactMail", "contactTel"];
@@ -34,6 +36,23 @@ function Clients() {
     setTermsPool(pool);
   }, [clientsData]);
 
+  useEffect(() => {
+    function findTerms(term: string) {
+      return clientsData.filter((item) => {
+        return ["clientName", "contactName"].some((key) => {
+          return item[key as keyof ClientType].toLowerCase().includes(term.toLowerCase());
+        });
+      });
+    }
+
+    if (searchTerm.length > 0) {
+      const result = findTerms(searchTerm);
+      setFilteredData(result);
+    } else {
+      setFilteredData([]);
+    }
+  }, [searchTerm, clientsData]);
+
   const handleDelete = async (value: { [key: string]: string }) => {
     const response = await deleteClient(value as Record<keyof ClientType, string>);
     if (response.success) {
@@ -53,7 +72,7 @@ function Clients() {
   };
 
   const handleTerm = (term: string) => {
-    console.log(term);
+    setSearchTerm(term);
   };
 
   return (
@@ -71,7 +90,7 @@ function Clients() {
       />
       <div className="zone" id="content-zone">
         <DataTable
-          rows={clientsData}
+          rows={filteredData.length > 0 ? filteredData : clientsData}
           columns={clientsColumns}
           labels={clientsLabels}
           deleteButton

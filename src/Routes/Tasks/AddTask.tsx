@@ -1,0 +1,125 @@
+import { useState, FormEvent } from "react";
+import {
+  IoBusinessOutline,
+  IoCheckmarkOutline,
+  IoCloseOutline,
+  IoListOutline,
+  IoCalendarNumberOutline,
+  IoSparklesOutline,
+} from "react-icons/io5";
+import { Button, InputField, Select, useToast } from "simplegems";
+import { useModalContext } from "../../context/ModalContext";
+import { TaskType } from "../../models/task";
+import { registerTask } from "../../api/taskApi";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+
+function AddTask() {
+  const resetForm: TaskType = {
+    uid: "",
+    id: "",
+    projectId: "",
+    taskName: "",
+    description: "",
+    status: "",
+    deadline: "",
+  };
+
+  const projects = useSelector((state: RootState) => state.projects);
+  const { setBox } = useModalContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const [form, setForm] = useState(resetForm);
+  const sendToast = useToast();
+
+  const options = projects.map((project) => ({
+    label: project.projectName,
+    value: project.id,
+  }));
+
+  const updateForm = (value: string, target: string) => {
+    setForm((prevState) => ({
+      ...prevState,
+      [target]: value,
+    }));
+  };
+
+  const handleSelectChange = (value: { [key: string]: string }) => {
+    setForm((prevState) => ({
+      ...prevState,
+      projectId: value.value,
+    }));
+  };
+
+  const submitTask = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const response = await registerTask(form);
+    if (response.success) {
+      setIsLoading(false);
+      closeModal();
+      sendToast("success", response.message);
+    } else {
+      setIsLoading(false);
+      sendToast("danger", response.message);
+    }
+  };
+
+  const closeModal = () => {
+    setBox(null);
+    setForm(resetForm);
+  };
+
+  return (
+    <div className="card" id="box">
+      <h2 className="card-header black">
+        <IoListOutline /> Ajouter une tâche{" "}
+        <IoCloseOutline id="close-box" onClick={closeModal} />
+      </h2>
+      <form onSubmit={submitTask}>
+        <div className="card-content" id="box-content">
+          <InputField
+            id="task-name"
+            label="Titre de la tâche"
+            iconBefore={<IoListOutline />}
+            type="text"
+            value={form.taskName}
+            onChange={(value) => updateForm(value, "taskName")}
+          />
+          <Select
+            id="select-project"
+            placeholder="Faites votre choix"
+            label="Tâché liée au projet :"
+            iconBefore={<IoSparklesOutline />}
+            data={options}
+            onChange={handleSelectChange}
+          />
+          <InputField
+            id="task-deadline"
+            label="Date limite"
+            iconBefore={<IoCalendarNumberOutline />}
+            type="text"
+            value={form.deadline}
+            onChange={(value) => updateForm(value, "deadline")}
+          />
+        </div>
+        <div className="card-footer button-group">
+          <Button
+            type="button"
+            onClick={closeModal}
+            label="Annuler"
+            iconBefore={<IoCloseOutline />}
+          />
+          <Button
+            type="submit"
+            label="Valider"
+            variant="primary"
+            iconBefore={<IoCheckmarkOutline />}
+            isLoading={isLoading}
+          />
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default AddTask;

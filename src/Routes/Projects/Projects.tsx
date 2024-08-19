@@ -101,7 +101,7 @@ function Projects() {
           />
         }
       />
-      <div className="zone" id="content-zone">
+      <div className="zone content-zone">
         <DataTable
           rows={filteredData.length > 0 ? filteredData : rawData}
           columns={clientsColumns}

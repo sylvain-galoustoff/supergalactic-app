@@ -15,6 +15,34 @@ h3,
   font-size: 1.25rem;
 }
 
+h4,
+.h4 {
+  font-size: 1.1rem;
+}
+
+p,
+span {
+  &.primary {
+    color: $primary;
+  }
+
+  &.success {
+    color: $success;
+  }
+
+  &.warning {
+    color: $warning;
+  }
+
+  &.danger {
+    color: $danger;
+  }
+}
+
+.bold {
+  font-weight: 500;
+}
+
 .black {
   font-weight: 900;
 }

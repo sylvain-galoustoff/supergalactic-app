@@ -1,13 +1,12 @@
 import { useState, FormEvent } from "react";
 import {
-  IoBusinessOutline,
   IoCheckmarkOutline,
   IoCloseOutline,
   IoListOutline,
   IoCalendarNumberOutline,
   IoSparklesOutline,
 } from "react-icons/io5";
-import { Button, InputField, Select, useToast } from "simplegems";
+import { Button, InputField, Select, TextArea, useToast } from "simplegems";
 import { useModalContext } from "../../context/ModalContext";
 import { TaskType } from "../../models/task";
 import { registerTask } from "../../api/taskApi";
@@ -100,6 +99,13 @@ function AddTask() {
             type="text"
             value={form.deadline}
             onChange={(value) => updateForm(value, "deadline")}
+          />
+          <TextArea
+            id="task-note"
+            label="Description"
+            value={form.description}
+            onChange={(value) => updateForm(value, "description")}
+            rows={5}
           />
         </div>
         <div className="card-footer button-group">

@@ -5,14 +5,16 @@ import Toolbar from "../../Components/ui/Toolbar";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { DataSearch, DataTable, useToast } from "simplegems";
-import { ProjectType } from "../../models/project";
+import { ProjectTableType, ProjectType } from "../../models/project";
 import { useEffect, useState } from "react";
 import { deleteProject, updateProject } from "../../api/projectApi";
 import AddProject from "./AddProject";
 
 function Projects() {
   const projectsData = useSelector((state: RootState) => state.projects);
-  const [filteredData, setFilteredData] = useState<ProjectType[]>([]);
+  const clientsData = useSelector((state: RootState) => state.clients);
+  const [rawData, setRawData] = useState<ProjectTableType[]>([]);
+  const [filteredData, setFilteredData] = useState<ProjectTableType[]>([]);
   const [termsPool, setTermsPool] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const sendToast = useToast();
@@ -24,20 +26,31 @@ function Projects() {
   };
 
   useEffect(() => {
-    const projectsDataValues: string[] = [];
+    const formatProjectsForDataTable = projectsData.map((project) => {
+      const clientData = clientsData.find((client) => client.id === project.clientId);
+      return {
+        ...project,
+        clientName: clientData ? clientData.clientName : "client non trouvé",
+      };
+    });
+    setRawData(formatProjectsForDataTable);
+  }, [clientsData, projectsData]);
+
+  useEffect(() => {
+    const formatProjectsForDataSearch: string[] = [];
     projectsData.forEach(({ uid, id, ...project }) => {
       Object.values(project).map((value) => {
-        if (value !== "") projectsDataValues.push(value);
+        if (value !== "") formatProjectsForDataSearch.push(value);
       });
     });
-    const pool = Array.from(new Set(projectsDataValues));
+    const pool = Array.from(new Set(formatProjectsForDataSearch));
     setTermsPool(pool);
   }, [projectsData]);
 
   useEffect(() => {
-    function findTerms(term: string) {
-      return projectsData.filter((item) => {
-        return ["projectName", "clientName"].some((key) => {
+    function findTermsInDataTable(term: string) {
+      return rawData.filter((item) => {
+        return ["projectName", "clientId"].some((key) => {
           return item[key as keyof ProjectType]
             .toLowerCase()
             .includes(term.toLowerCase());
@@ -46,7 +59,7 @@ function Projects() {
     }
 
     if (searchTerm.length > 0) {
-      const result = findTerms(searchTerm);
+      const result = findTermsInDataTable(searchTerm);
       setFilteredData(result);
     } else {
       setFilteredData([]);
@@ -90,7 +103,7 @@ function Projects() {
       />
       <div className="zone" id="content-zone">
         <DataTable
-          rows={filteredData.length > 0 ? filteredData : projectsData}
+          rows={filteredData.length > 0 ? filteredData : rawData}
           columns={clientsColumns}
           labels={clientsLabels}
           deleteButton

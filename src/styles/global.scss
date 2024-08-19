@@ -202,6 +202,7 @@ main {
   button:last-child {
     border-top-right-radius: $corner;
     border-bottom-right-radius: $corner;
+    border-left: 1px solid $bg;
   }
 }
 
@@ -226,6 +227,7 @@ main {
 #table-search-results {
   @include shadow;
   max-height: 189px;
+  border: 1px solid $bg;
 }
 
 /* PROFIL PAGE */

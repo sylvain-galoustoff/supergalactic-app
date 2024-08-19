@@ -16,7 +16,7 @@ function AddProject() {
   const resetForm: ProjectType = {
     uid: "",
     id: "",
-    clientName: "",
+    clientId: "",
     projectName: "",
   };
 
@@ -28,7 +28,7 @@ function AddProject() {
 
   const options = clients.map((client) => ({
     label: client.clientName,
-    value: client.clientName,
+    value: client.id,
   }));
 
   const updateForm = (value: string, target: string) => {
@@ -41,7 +41,7 @@ function AddProject() {
   const handleSelectChange = (value: { [key: string]: string }) => {
     setForm((prevState) => ({
       ...prevState,
-      clientName: value.value,
+      clientId: value.value,
     }));
   };
 

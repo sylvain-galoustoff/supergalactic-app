@@ -1,6 +1,10 @@
 export type ProjectType = {
   uid: string;
   id: string;
-  clientName: string;
+  clientId: string;
   projectName: string;
+};
+
+export type ProjectTableType = ProjectType & {
+  clientName: string;
 };

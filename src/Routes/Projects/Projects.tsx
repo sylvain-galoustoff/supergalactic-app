@@ -38,7 +38,7 @@ function Projects() {
 
   useEffect(() => {
     const formatProjectsForDataSearch: string[] = [];
-    projectsData.forEach(({ uid, id, ...project }) => {
+    rawData.forEach(({ uid, id, clientId, ...project }) => {
       Object.values(project).map((value) => {
         if (value !== "") formatProjectsForDataSearch.push(value);
       });
@@ -50,7 +50,7 @@ function Projects() {
   useEffect(() => {
     function findTermsInDataTable(term: string) {
       return rawData.filter((item) => {
-        return ["projectName", "clientId"].some((key) => {
+        return ["projectName", "clientName"].some((key) => {
           return item[key as keyof ProjectType]
             .toLowerCase()
             .includes(term.toLowerCase());

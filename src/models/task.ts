@@ -4,6 +4,6 @@ export type TaskType = {
   projectId: string;
   taskName: string;
   description: string;
-  status: string;
-  deadline: string;
+  status: "backlog" | "doing" | "review" | "done";
+  deadline: Date | null;
 };

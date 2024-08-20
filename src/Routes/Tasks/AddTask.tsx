@@ -3,10 +3,9 @@ import {
   IoCheckmarkOutline,
   IoCloseOutline,
   IoListOutline,
-  IoCalendarNumberOutline,
   IoSparklesOutline,
 } from "react-icons/io5";
-import { Button, InputField, Select, TextArea, useToast } from "simplegems";
+import { Button, InputField, Select, TextArea, useToast, InputDate } from "simplegems";
 import { useModalContext } from "../../context/ModalContext";
 import { TaskType } from "../../models/task";
 import { registerTask } from "../../api/taskApi";
@@ -20,8 +19,8 @@ function AddTask() {
     projectId: "",
     taskName: "",
     description: "",
-    status: "",
-    deadline: "",
+    status: "backlog",
+    deadline: new Date(),
   };
 
   const projects = useSelector((state: RootState) => state.projects);
@@ -46,6 +45,13 @@ function AddTask() {
     setForm((prevState) => ({
       ...prevState,
       projectId: value.value,
+    }));
+  };
+
+  const handleDateChange = (value: Date | null) => {
+    setForm((prevState) => ({
+      ...prevState,
+      deadline: value,
     }));
   };
 
@@ -82,29 +88,25 @@ function AddTask() {
             iconBefore={<IoListOutline />}
             type="text"
             value={form.taskName}
-            onChange={(value) => updateForm(value, "taskName")}
+            onChange={(value: string) => updateForm(value, "taskName")}
           />
           <Select
-            id="select-project"
+            id="task-project"
             placeholder="Faites votre choix"
             label="Tâché liée au projet :"
             iconBefore={<IoSparklesOutline />}
             data={options}
             onChange={handleSelectChange}
           />
-          <InputField
-            id="task-deadline"
+          <InputDate
             label="Date limite"
-            iconBefore={<IoCalendarNumberOutline />}
-            type="text"
-            value={form.deadline}
-            onChange={(value) => updateForm(value, "deadline")}
+            onChange={(value: Date | null) => handleDateChange(value)}
           />
           <TextArea
             id="task-note"
             label="Description"
             value={form.description}
-            onChange={(value) => updateForm(value, "description")}
+            onChange={(value: string) => updateForm(value, "description")}
             rows={5}
           />
         </div>

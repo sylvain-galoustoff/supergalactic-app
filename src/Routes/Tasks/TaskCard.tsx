@@ -10,9 +10,10 @@ export type TaskCardProps = {
 
 function TaskCard({ task }: TaskCardProps) {
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
-    console.log(task.id);
+    console.log(e.dataTransfer);
     e.dataTransfer.setData("text/plain", task.id);
     e.currentTarget.style.opacity = "0.5";
+    e.dataTransfer.setData("cardId", task.id);
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {

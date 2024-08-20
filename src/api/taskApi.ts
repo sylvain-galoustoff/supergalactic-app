@@ -50,6 +50,19 @@ export const registerTask = async (form: TaskType): Promise<apiResponseType> => 
   }
 };
 
+export const patchTask = async (
+  taskId: string,
+  key: string,
+  value: string
+): Promise<apiResponseType> => {
+  const docRef = doc(db, "tasks", taskId);
+  await updateDoc(docRef, { [key]: value });
+  return {
+    success: true,
+    message: `Statut modifié`,
+  };
+};
+
 export const updateClient = async (payload: ClientType): Promise<apiResponseType> => {
   const docRef = doc(db, "clients", payload.id);
 

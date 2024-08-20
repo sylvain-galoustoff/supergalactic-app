@@ -1,6 +1,7 @@
 import { DragEvent } from "react";
 import { TaskType } from "../../models/task";
 import TaskCard from "./TaskCard";
+import { patchTask } from "../../api/taskApi";
 
 export type TaskColumnType = {
   status: "backlog" | "doing" | "review" | "done";
@@ -19,6 +20,7 @@ function TaskColumn({ status, data }: TaskColumnType) {
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
     e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
   };
 
@@ -28,6 +30,15 @@ function TaskColumn({ status, data }: TaskColumnType) {
 
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.currentTarget.style.backgroundColor = "transparent";
+  };
+
+  const handleOnDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.currentTarget.style.backgroundColor = "transparent";
+    const targetId = e.currentTarget.id;
+    const newCardStatus = targetId.split("tasks-")[1];
+    const taskId = e.dataTransfer.getData("text/plain");
+    const response = await patchTask(taskId, "status", newCardStatus);
+    console.log(response);
   };
 
   return (
@@ -40,6 +51,7 @@ function TaskColumn({ status, data }: TaskColumnType) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDragEnd={handleDragEnd}
+        onDrop={handleOnDrop}
       >
         {renderBacklog}
       </div>

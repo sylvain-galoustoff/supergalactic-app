@@ -43,9 +43,11 @@ function TaskColumn({ status, data }: TaskColumnType) {
 
   return (
     <div className="task-column">
-      <h3 className="task-column-header">{status}</h3>
+      <div className="task-column-header">
+        <h3 className="task-column-title">{status}</h3>
+      </div>
       <div
-        className="tasks"
+        className="tasks drag-over"
         id={`tasks-${status}`}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}

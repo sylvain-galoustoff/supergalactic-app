@@ -262,9 +262,17 @@ main {
 }
 
 .task-column-header {
-  @include card;
+  padding: 0 $marge*2;
+}
+
+.task-column-title {
   padding: $marge*4;
   font-weight: 700;
+  @include card;
+
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 
 .tasks {
@@ -273,6 +281,8 @@ main {
   flex-direction: column;
   gap: $marge*4;
   border-radius: $corner;
+  padding: $marge*2;
+
 }
 
 .task-card {

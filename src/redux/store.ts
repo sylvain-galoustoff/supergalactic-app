@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./userSlice";
 import clientsReducer from "./clientSlice";
 import projectReducer from "./ProjectSlice";
+import taskReducer from "./TaskSlice";
 
 const persistConfig = {
   key: "root",
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   clients: clientsReducer,
   projects: projectReducer,
+  tasks: taskReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -5,5 +5,5 @@ export type TaskType = {
   taskName: string;
   description: string;
   status: "backlog" | "doing" | "review" | "done";
-  deadline: Date | null;
+  deadline: number | null;
 };

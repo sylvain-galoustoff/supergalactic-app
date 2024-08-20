@@ -10,13 +10,13 @@ import { ClientType } from "../models/client";
 import { db } from "../firebase.ts";
 import { apiResponseType } from "../models/apiResponse";
 import { store } from "../redux/store.ts";
-import { storeClients } from "../redux/clientSlice.ts";
 import { TaskType } from "../models/task.ts";
+import { storeTask } from "../redux/TaskSlice.ts";
 
-export const observeClients = () => {
-  const unsubscribe = onSnapshot(collection(db, "clients"), (snapshot) => {
-    const data = snapshot.docs.map((doc) => doc.data() as ClientType);
-    store.dispatch(storeClients(data));
+export const observeTasks = () => {
+  const unsubscribe = onSnapshot(collection(db, "tasks"), (snapshot) => {
+    const data = snapshot.docs.map((doc) => doc.data() as TaskType);
+    store.dispatch(storeTask(data));
   });
   return unsubscribe;
 };

@@ -13,6 +13,7 @@ import ProtectedRoutes from "./Protected/ProtectedRoutes";
 import Clients from "./Clients/Clients";
 import Projects from "./Projects/Projects";
 import Tasks from "./Tasks/Tasks";
+import { observeTasks } from "../api/taskApi";
 
 function Layout() {
   const { toastList, removeToast } = useToastsList();
@@ -22,10 +23,12 @@ function Layout() {
   useEffect(() => {
     const unsubscribeClients = observeClients();
     const unsubscribeProjects = observeProjects();
+    const unsubscribeTasks = observeTasks();
 
     return () => {
       unsubscribeClients();
       unsubscribeProjects();
+      unsubscribeTasks();
     };
   }, [dispatch]);
 

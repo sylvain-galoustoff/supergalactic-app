@@ -20,7 +20,7 @@ function AddTask() {
     taskName: "",
     description: "",
     status: "backlog",
-    deadline: new Date(),
+    deadline: null,
   };
 
   const projects = useSelector((state: RootState) => state.projects);
@@ -51,7 +51,7 @@ function AddTask() {
   const handleDateChange = (value: Date | null) => {
     setForm((prevState) => ({
       ...prevState,
-      deadline: value,
+      deadline: value ? value.getTime() : null,
     }));
   };
 

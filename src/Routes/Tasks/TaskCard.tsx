@@ -1,6 +1,7 @@
 import { IoEllipse, IoArrowForwardOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { TaskType } from "../../models/task";
+import TaskDeadline from "./TaskDeadline";
 
 export type TaskCardProps = {
   task: TaskType;
@@ -16,10 +17,10 @@ function TaskCard({ task }: TaskCardProps) {
         <p className={`task-description ${!task.description ? "italic" : null}`}>
           {task.description ? task.description : "Aucune note"}
         </p>
-        <p className="task-deadline help danger">Dans 4 jours</p>
+        <TaskDeadline deadline={task.deadline} />
       </div>
       <div className="task-footer">
-        <Link to={`/task/${task.id}`}>
+        <Link to={`/tache/${task.id}`}>
           Détails <IoArrowForwardOutline />
         </Link>
       </div>

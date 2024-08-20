@@ -252,6 +252,13 @@ main {
   grid-template-columns: repeat(4, 1fr);
   row-gap: $marge*4;
   column-gap: $marge*8;
+  padding-bottom: $marge*8;
+}
+
+.task-column {
+  display: flex;
+  gap: $marge*4;
+  flex-direction: column;
 }
 
 .task-column-header {
@@ -261,10 +268,11 @@ main {
 }
 
 .tasks {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: $marge*4;
-  padding: $marge*4 0;
+  border-radius: $corner;
 }
 
 .task-card {

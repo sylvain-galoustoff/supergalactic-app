@@ -1,7 +1,8 @@
-import { DragEvent } from "react";
+import { DragEvent, useEffect } from "react";
 import { TaskType } from "../../models/task";
 import TaskCard from "./TaskCard";
 import { patchTask } from "../../api/taskApi";
+import { useToast } from "simplegems";
 
 export type TaskColumnType = {
   status: "backlog" | "doing" | "review" | "done";
@@ -9,6 +10,10 @@ export type TaskColumnType = {
 };
 
 function TaskColumn({ status, data }: TaskColumnType) {
+  const sendToast = useToast();
+
+  useEffect(() => {}, [data]);
+
   const renderBacklog = data.map((task) => {
     if (task.status === status) {
       return <TaskCard key={task.id} task={task} />;
@@ -38,7 +43,9 @@ function TaskColumn({ status, data }: TaskColumnType) {
     const newCardStatus = targetId.split("tasks-")[1];
     const taskId = e.dataTransfer.getData("text/plain");
     const response = await patchTask(taskId, "status", newCardStatus);
-    console.log(response);
+    if (response.success === false) {
+      sendToast("danger", response.message);
+    }
   };
 
   return (

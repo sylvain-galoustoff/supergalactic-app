@@ -56,11 +56,19 @@ export const patchTask = async (
   value: string
 ): Promise<apiResponseType> => {
   const docRef = doc(db, "tasks", taskId);
-  await updateDoc(docRef, { [key]: value });
-  return {
-    success: true,
-    message: `Statut modifié`,
-  };
+
+  try {
+    await updateDoc(docRef, { [key]: value });
+    return {
+      success: true,
+      message: `Statut modifié`,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Erreur serveur : modification impossible pour l'instant`,
+    };
+  }
 };
 
 export const updateClient = async (payload: ClientType): Promise<apiResponseType> => {

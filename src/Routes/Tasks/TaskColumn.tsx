@@ -1,4 +1,4 @@
-import { DragEvent, useEffect } from "react";
+import { DragEvent, useEffect, useState } from "react";
 import { TaskType } from "../../models/task";
 import TaskCard from "./TaskCard";
 import { patchTask } from "../../api/taskApi";
@@ -11,10 +11,15 @@ export type TaskColumnType = {
 
 function TaskColumn({ status, data }: TaskColumnType) {
   const sendToast = useToast();
+  const [orderedTasks, setOrderedTasks] = useState<TaskType[]>([]);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    const filteredData = [...data].filter((task) => task.status === status);
+    const orderedData = filteredData.sort((a, b) => a.deadline - b.deadline);
+    setOrderedTasks(orderedData);
+  }, [data]);
 
-  const renderBacklog = data.map((task) => {
+  const renderTasks = orderedTasks.map((task) => {
     if (task.status === status) {
       return <TaskCard key={task.id} task={task} />;
     }
@@ -62,7 +67,7 @@ function TaskColumn({ status, data }: TaskColumnType) {
         onDragEnd={handleDragEnd}
         onDrop={handleOnDrop}
       >
-        {renderBacklog}
+        {renderTasks}
       </div>
     </div>
   );

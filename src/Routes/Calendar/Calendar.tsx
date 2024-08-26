@@ -1,14 +1,65 @@
+import { useState, useEffect } from "react";
 import { Select, InputField } from "simplegems";
 import PageHeader from "../../Components/ui/PageHeader/PageHeader";
 import Toolbar from "../../Components/ui/Toolbar";
+import { monthSelectOption } from "./calendarConfig";
+import { startOfMonth, format, getDaysInMonth, endOfMonth } from "date-fns";
+import CalendarCell from "./CalendarCell";
 
 function Calendar() {
-  const monthSelectOption = [
-    {
-      label: "janvier",
-      value: "janvier",
-    },
-  ];
+  const [date, setDate] = useState(new Date());
+  const [month, setMonth] = useState("Janvier");
+  const [year, setYear] = useState("2024");
+  const [offset, setOffset] = useState(0);
+  const [fillers, setFillers] = useState(0);
+  const [days, setDays] = useState(30);
+
+  useEffect(() => {
+    const monthStart = startOfMonth(date);
+    const offsetStart = Number(format(monthStart, "i")) - 1;
+    setOffset(offsetStart);
+
+    const monthEnd = endOfMonth(date);
+    const offsetEnd = 7 - Number(format(monthEnd, "i"));
+    setFillers(offsetEnd);
+
+    const daysInMonth = getDaysInMonth(date);
+    setDays(daysInMonth);
+  }, [date]);
+
+  useEffect(() => {
+    const monthString = format(date, "MMMM");
+    setMonth(monthString);
+
+    const yearString = format(date, "yyyy");
+    setYear(yearString);
+  }, []);
+
+  const renderOffset = Array.from({ length: offset }, (_, i) => i + 1).map((index) => (
+    <div key={index} className="day calendar-cell" />
+  ));
+
+  const renderDays = Array.from({ length: days }, (_, i) => i + 1).map((index) => (
+    <CalendarCell key={index} dayNumber={index} fullDate={date} />
+  ));
+
+  const renderFillers = Array.from({ length: fillers }, (_, i) => i + 1).map((index) => (
+    <div key={index} className="day calendar-cell" />
+  ));
+
+  const handleMonthChange = (newMonth: { [key: string]: string }) => {
+    const newDate = new Date(Number(year), Number(newMonth.value) - 1, 1);
+    setDate(newDate);
+  };
+
+  const handleYearChange = (newYear: string) => {
+    setYear(newYear);
+    const formatMonth = format(date, "M");
+    const newDate = new Date(Number(newYear), Number(formatMonth) - 1, 1);
+    if (newYear.length === 4) {
+      setDate(newDate);
+    }
+  };
 
   return (
     <main id="calendar">
@@ -18,10 +69,20 @@ function Calendar() {
         <div id="grid">
           <div id="grid-month-selection">
             <div className="calendar-cell" id="month">
-              <Select data={monthSelectOption} id="month-selector" />
+              <Select
+                data={monthSelectOption}
+                id="month-selector"
+                defaultValue={month}
+                onChange={handleMonthChange}
+              />
             </div>
             <div className="calendar-cell" id="year">
-              <InputField id="year-input" type="text" value="2024" />
+              <InputField
+                id="year-input"
+                type="text"
+                value={year}
+                onChange={handleYearChange}
+              />
             </div>
           </div>
           <div id="weekdays">
@@ -34,41 +95,9 @@ function Calendar() {
             <div className="weekday calendar-cell">Dim</div>
           </div>
           <div id="days">
-            <div className="day calendar-cell">1</div>
-            <div className="day calendar-cell">2</div>
-            <div className="day calendar-cell">3</div>
-            <div className="day calendar-cell">4</div>
-            <div className="day calendar-cell">5</div>
-            <div className="day calendar-cell">6</div>
-            <div className="day calendar-cell">7</div>
-            <div className="day calendar-cell">8</div>
-            <div className="day calendar-cell">9</div>
-            <div className="day calendar-cell">10</div>
-            <div className="day calendar-cell">11</div>
-            <div className="day calendar-cell">12</div>
-            <div className="day calendar-cell">13</div>
-            <div className="day calendar-cell">14</div>
-            <div className="day calendar-cell">15</div>
-            <div className="day calendar-cell">16</div>
-            <div className="day calendar-cell">17</div>
-            <div className="day calendar-cell">18</div>
-            <div className="day calendar-cell">19</div>
-            <div className="day calendar-cell">20</div>
-            <div className="day calendar-cell">21</div>
-            <div className="day calendar-cell">22</div>
-            <div className="day calendar-cell">23</div>
-            <div className="day calendar-cell">24</div>
-            <div className="day calendar-cell">25</div>
-            <div className="day calendar-cell">26</div>
-            <div className="day calendar-cell">27</div>
-            <div className="day calendar-cell">28</div>
-            <div className="day calendar-cell">29</div>
-            <div className="day calendar-cell">30</div>
-            <div className="day calendar-cell">31</div>
-            <div className="day calendar-cell" />
-            <div className="day calendar-cell" />
-            <div className="day calendar-cell" />
-            <div className="day calendar-cell" />
+            {renderOffset}
+            {renderDays}
+            {renderFillers}
           </div>
         </div>
         <div id="events"></div>

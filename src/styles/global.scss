@@ -405,8 +405,6 @@ main {
   border-bottom: none;
 }
 
-#month {}
-
 #month-selector-input-group {
   border: none;
 }
@@ -428,15 +426,7 @@ main {
 #days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-
   border-bottom: none;
-
-  .calendar-cell {}
-}
-
-#weekdays {
-
-  .calendar-cell:last-child {}
 }
 
 .weekday {
@@ -448,10 +438,6 @@ main {
 
 #days {
   flex: 1;
-
-  .calendar-cell {}
-
-  .calendar-cell:nth-child(7n-6) {}
 }
 
 .day {

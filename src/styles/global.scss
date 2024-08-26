@@ -411,6 +411,12 @@ main {
   @include shadow;
 }
 
+#month-selector {
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+
 #year-input {
   color: $text;
   font-weight: 700;
@@ -441,8 +447,12 @@ main {
 .day {
   padding: $marge*2;
   position: relative;
-  cursor: pointer;
   @include trans;
+
+}
+
+.not-empty {
+  cursor: pointer;
 
   &:hover {
     background-color: $cardAlt;

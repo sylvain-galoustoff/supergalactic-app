@@ -16,7 +16,7 @@ function CalendarCell({ dayNumber, fullDate }: CalendarCellProps) {
   };
 
   return (
-    <div className="day calendar-cell" onClick={handleAddEvent}>
+    <div className="day calendar-cell not-empty" onClick={handleAddEvent}>
       <p>{dayNumber}</p>
       <div className="events-indicators">
         <span className="has-event"></span>

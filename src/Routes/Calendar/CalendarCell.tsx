@@ -11,7 +11,20 @@ function CalendarCell({ dayNumber, fullDate }: CalendarCellProps) {
     console.log(getTime(fullDate));
   });
 
-  return <div className="day calendar-cell">{dayNumber}</div>;
+  const handleAddEvent = () => {
+    console.log("add event");
+  };
+
+  return (
+    <div className="day calendar-cell" onClick={handleAddEvent}>
+      <p>{dayNumber}</p>
+      <div className="events-indicators">
+        <span className="has-event"></span>
+        <span className="has-event"></span>
+        <span className="has-event"></span>
+      </div>
+    </div>
+  );
 }
 
 export default CalendarCell;

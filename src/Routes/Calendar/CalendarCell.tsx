@@ -1,5 +1,5 @@
-import { getTime } from "date-fns/getTime";
-import { useEffect } from "react";
+import { useModalContext } from "../../context/ModalContext";
+import AddEvent from "./Events/AddEvent";
 
 type CalendarCellProps = {
   dayNumber: number;
@@ -7,12 +7,10 @@ type CalendarCellProps = {
 };
 
 function CalendarCell({ dayNumber, fullDate }: CalendarCellProps) {
-  useEffect(() => {
-    console.log(getTime(fullDate));
-  });
+  const { setBox } = useModalContext();
 
   const handleAddEvent = () => {
-    console.log("add event");
+    setBox(<AddEvent date={fullDate} />);
   };
 
   return (

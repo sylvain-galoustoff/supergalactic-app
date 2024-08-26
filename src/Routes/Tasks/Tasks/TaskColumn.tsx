@@ -1,7 +1,7 @@
 import { DragEvent, useEffect, useState } from "react";
-import { TaskType } from "../../models/task";
+import { TaskType } from "../../../models/task";
 import TaskCard from "./TaskCard";
-import { patchTask } from "../../api/taskApi";
+import { patchTask } from "../../../api/taskApi";
 import { useToast } from "simplegems";
 
 export type TaskColumnType = {
@@ -26,24 +26,29 @@ function TaskColumn({ status, data }: TaskColumnType) {
   });
 
   const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
-    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+    e.currentTarget.style.background =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))";
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+    e.currentTarget.style.background =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))";
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.background =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))";
   };
 
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
-    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.background =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))";
   };
 
   const handleOnDrop = async (e: DragEvent<HTMLDivElement>) => {
-    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.background =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0))";
     const targetId = e.currentTarget.id;
     const newCardStatus = targetId.split("tasks-")[1];
     const taskId = e.dataTransfer.getData("text/plain");

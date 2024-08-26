@@ -12,8 +12,9 @@ import Dashboard from "./Dashboard/Dashboard";
 import ProtectedRoutes from "./Protected/ProtectedRoutes";
 import Clients from "./Clients/Clients";
 import Projects from "./Projects/Projects";
-import Tasks from "./Tasks/Tasks";
+import Tasks from "./Tasks/Tasks/Tasks";
 import { observeTasks } from "../api/taskApi";
+import SingleTask from "./Tasks/SingleTask/SingleTask";
 
 function Layout() {
   const { toastList, removeToast } = useToastsList();
@@ -42,6 +43,7 @@ function Layout() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/projets" element={<Projects />} />
           <Route path="/taches" element={<Tasks />} />
+          <Route path="/taches/:id" element={<SingleTask />} />
         </Route>
       </Routes>
       <Toaster

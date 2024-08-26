@@ -6,10 +6,10 @@ import {
   IoSparklesOutline,
 } from "react-icons/io5";
 import { Button, InputField, Select, TextArea, useToast, InputDate } from "simplegems";
-import { useModalContext } from "../../context/ModalContext";
-import { TaskType } from "../../models/task";
-import { registerTask } from "../../api/taskApi";
-import { RootState } from "../../redux/store";
+import { useModalContext } from "../../../context/ModalContext";
+import { TaskType } from "../../../models/task";
+import { registerTask } from "../../../api/taskApi";
+import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 
 function AddTask() {
@@ -20,7 +20,7 @@ function AddTask() {
     taskName: "",
     description: "",
     status: "backlog",
-    deadline: null,
+    deadline: Date.now(),
   };
 
   const projects = useSelector((state: RootState) => state.projects);
@@ -48,10 +48,10 @@ function AddTask() {
     }));
   };
 
-  const handleDateChange = (value: Date | null) => {
+  const handleDateChange = (value: Date) => {
     setForm((prevState) => ({
       ...prevState,
-      deadline: value ? value.getTime() : null,
+      deadline: value.getTime(),
     }));
   };
 
@@ -100,7 +100,7 @@ function AddTask() {
           />
           <InputDate
             label="Date limite"
-            onChange={(value: Date | null) => handleDateChange(value)}
+            onChange={(value: Date) => handleDateChange(value)}
           />
           <TextArea
             id="task-note"

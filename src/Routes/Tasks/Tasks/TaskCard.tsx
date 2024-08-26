@@ -1,6 +1,6 @@
 import { IoEllipse, IoArrowForwardOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { TaskType } from "../../models/task";
+import { TaskType } from "../../../models/task";
 import TaskDeadline from "./TaskDeadline";
 import { DragEvent } from "react";
 
@@ -36,7 +36,7 @@ function TaskCard({ task }: TaskCardProps) {
         <TaskDeadline deadline={task.deadline} />
       </div>
       <div className="task-footer">
-        <Link to={`/tache/${task.id}`}>
+        <Link to={`/taches/${task.id}`}>
           Détails <IoArrowForwardOutline />
         </Link>
       </div>

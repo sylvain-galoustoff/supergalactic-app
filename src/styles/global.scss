@@ -250,14 +250,13 @@ main {
 #task-manager {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: $marge*4;
-  column-gap: $marge*8;
+  gap: $marge*2;
   padding-bottom: $marge*8;
 }
 
 .task-column {
   display: flex;
-  gap: $marge*4;
+  gap: $marge*2;
   flex-direction: column;
 }
 

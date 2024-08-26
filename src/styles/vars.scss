@@ -14,6 +14,10 @@ $corner: 4px;
 $font: "Overpass",
   sans-serif;
 
+$headerHeight: 90px;
+$toolbarHeight: 75px;
+$contentHeight: calc(100% - $toolbarHeight - $headerHeight);
+
 @mixin dev($color: red, $width: 1px) {
   border: $width solid $color;
 }

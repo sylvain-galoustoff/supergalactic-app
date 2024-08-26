@@ -15,6 +15,7 @@ import Projects from "./Projects/Projects";
 import Tasks from "./Tasks/Tasks/Tasks";
 import { observeTasks } from "../api/taskApi";
 import SingleTask from "./Tasks/SingleTask/SingleTask";
+import Calendar from "./Calendar/Calendar";
 
 function Layout() {
   const { toastList, removeToast } = useToastsList();
@@ -44,6 +45,7 @@ function Layout() {
           <Route path="/projets" element={<Projects />} />
           <Route path="/taches" element={<Tasks />} />
           <Route path="/taches/:id" element={<SingleTask />} />
+          <Route path="/calendrier" element={<Calendar />} />
         </Route>
       </Routes>
       <Toaster

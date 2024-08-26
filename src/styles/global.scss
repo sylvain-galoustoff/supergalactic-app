@@ -53,7 +53,7 @@ aside {
 }
 
 .header {
-  height: 90px;
+  height: $headerHeight;
   display: flex;
   align-items: center;
 }
@@ -169,7 +169,7 @@ main {
 /* TOOLBAR */
 
 #toolbar-zone {
-  height: 75px;
+  height: $toolbarHeight;
   position: sticky;
   z-index: 10;
   top: 90px;
@@ -367,4 +367,93 @@ main {
 
 #select-project-options {
   @include shadow;
+}
+
+/* CALENDAR */
+#calendar-zone {
+  height: $contentHeight;
+  display: flex;
+  gap: $marge*4;
+}
+
+#grid,
+#events {
+  width: 50%;
+}
+
+#grid {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: $marge*2;
+}
+
+.calendar-cell {
+  background-color: $card;
+  border: 1px solid $bg;
+  border-top: none;
+  border-right: none;
+}
+
+#grid-month-selection {
+  grid-column-start: 1;
+  grid-column-end: 8;
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  color: $text;
+  font-weight: 700;
+
+  border-bottom: none;
+}
+
+#month {}
+
+#month-selector-input-group {
+  border: none;
+}
+
+#month-selector-options {
+  @include shadow;
+}
+
+#year-input {
+  color: $text;
+  font-weight: 700;
+}
+
+#year-input-input-group {
+  border: none;
+}
+
+#weekdays,
+#days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  border-bottom: none;
+
+  .calendar-cell {}
+}
+
+#weekdays {
+
+  .calendar-cell:last-child {}
+}
+
+.weekday {
+  padding: $marge*2;
+  text-align: center;
+  color: $text;
+  font-weight: 700;
+}
+
+#days {
+  flex: 1;
+
+  .calendar-cell {}
+
+  .calendar-cell:nth-child(7n-6) {}
+}
+
+.day {
+  padding: $marge*2;
 }

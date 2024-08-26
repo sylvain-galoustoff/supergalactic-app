@@ -5,6 +5,7 @@ import userReducer from "./userSlice";
 import clientsReducer from "./clientSlice";
 import projectReducer from "./ProjectSlice";
 import taskReducer from "./TaskSlice";
+import eventReducer from "./eventsSlice";
 
 const persistConfig = {
   key: "root",
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   clients: clientsReducer,
   projects: projectReducer,
   tasks: taskReducer,
+  events: eventReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

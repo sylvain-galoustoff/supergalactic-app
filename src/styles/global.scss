@@ -448,7 +448,28 @@ main {
   padding: $marge*2;
   position: relative;
   @include trans;
+}
 
+.day-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 15px;
+  color: $textAlt;
+
+  span {
+    position: relative;
+    top: 2px;
+    font-size: .8rem;
+    font-weight: 700;
+  }
+
+  &.today {
+    background-color: $primary;
+    color: $card;
+  }
 }
 
 .not-empty {

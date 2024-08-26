@@ -3,9 +3,9 @@ import {
   IoCalendarNumberOutline,
   IoCheckmarkOutline,
   IoCloseOutline,
-  IoPersonOutline,
   IoSparklesOutline,
   IoTextOutline,
+  IoTimeOutline,
 } from "react-icons/io5";
 import { Button, InputField, Select, useToast } from "simplegems";
 import { useModalContext } from "../../../context/ModalContext";
@@ -25,6 +25,7 @@ function AddEvent({ date }: AddEventProps) {
     id: "",
     eventName: "",
     date: getTime(date),
+    hour: "00:00",
     taskId: "",
     projectId: "",
     clientId: "",
@@ -35,16 +36,10 @@ function AddEvent({ date }: AddEventProps) {
   const [form, setForm] = useState(resetForm);
   const sendToast = useToast();
   const projects = useSelector((state: RootState) => state.projects);
-  const clients = useSelector((state: RootState) => state.clients);
 
   const projectOptions = projects.map((project) => ({
     label: project.projectName,
     value: project.id,
-  }));
-
-  const clientOptions = clients.map((client) => ({
-    label: client.clientName,
-    value: client.id,
   }));
 
   const closeModal = () => {

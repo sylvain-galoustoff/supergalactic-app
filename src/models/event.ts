@@ -3,6 +3,7 @@ export type EventType = {
   id: string;
   eventName: string;
   date: number;
+  hour: string;
   taskId?: string;
   projectId?: string;
   clientId?: string;

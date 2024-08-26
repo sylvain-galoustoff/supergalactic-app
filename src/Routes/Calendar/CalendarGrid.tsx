@@ -1,7 +1,15 @@
 import { Select, InputField } from "simplegems";
 import { monthSelectOption } from "./calendarConfig";
 import { useEffect, useState } from "react";
-import { format, startOfMonth, endOfMonth, getDaysInMonth } from "date-fns";
+import {
+  format,
+  startOfMonth,
+  endOfMonth,
+  getDaysInMonth,
+  getMonth,
+  getYear,
+  getTime,
+} from "date-fns";
 import CalendarCell from "./CalendarCell";
 
 type CalendarGridProps = {
@@ -15,6 +23,7 @@ function CalendarGrid({ date, changeDate }: CalendarGridProps) {
   const [offset, setOffset] = useState(0);
   const [fillers, setFillers] = useState(0);
   const [days, setDays] = useState(30);
+  const today = getTime(new Date().setHours(0, 0, 0, 0));
 
   useEffect(() => {
     const monthStart = startOfMonth(date);
@@ -56,7 +65,13 @@ function CalendarGrid({ date, changeDate }: CalendarGridProps) {
   ));
 
   const renderDays = Array.from({ length: days }, (_, i) => i + 1).map((index) => (
-    <CalendarCell key={index} dayNumber={index} fullDate={date} />
+    <CalendarCell
+      key={index}
+      day={index}
+      month={getMonth(date)}
+      year={getYear(date)}
+      today={today}
+    />
   ));
 
   const renderFillers = Array.from({ length: fillers }, (_, i) => i + 1).map((index) => (

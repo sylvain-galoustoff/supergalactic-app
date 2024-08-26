@@ -16,6 +16,7 @@ import Tasks from "./Tasks/Tasks/Tasks";
 import { observeTasks } from "../api/taskApi";
 import SingleTask from "./Tasks/SingleTask/SingleTask";
 import Calendar from "./Calendar/Calendar";
+import { observeEvents } from "../api/eventApi";
 
 function Layout() {
   const { toastList, removeToast } = useToastsList();
@@ -26,11 +27,13 @@ function Layout() {
     const unsubscribeClients = observeClients();
     const unsubscribeProjects = observeProjects();
     const unsubscribeTasks = observeTasks();
+    const unsubscribeEvents = observeEvents();
 
     return () => {
       unsubscribeClients();
       unsubscribeProjects();
       unsubscribeTasks();
+      unsubscribeEvents();
     };
   }, [dispatch]);
 

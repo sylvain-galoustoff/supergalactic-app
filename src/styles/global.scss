@@ -258,6 +258,7 @@ main {
   display: flex;
   gap: $marge*2;
   flex-direction: column;
+  max-width: 100%;
 }
 
 .task-column-header {
@@ -290,34 +291,29 @@ main {
 
 .task-header {
   padding: $marge*4;
+  height: 75px;
   display: flex;
-  align-items: center;
-  gap: $marge;
+  flex-direction: column;
+  gap: $marge*2;
   font-weight: 700;
   border-bottom: 1px solid $bg;
-}
 
-.priority-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  top: -2px;
-
-  &.primary {
-    color: $primary;
+  h4,
+  .small {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  &.success {
-    color: $success;
+  h4 {
+    display: flex;
+    align-items: center;
+    gap: $marge;
   }
 
-  &.warning {
-    color: $warning;
-  }
-
-  &.danger {
-    color: $danger;
+  .small {
+    color: $textAlt;
+    font-weight: 400;
   }
 }
 

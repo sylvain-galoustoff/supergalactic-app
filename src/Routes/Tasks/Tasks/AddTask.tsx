@@ -11,6 +11,7 @@ import { TaskType } from "../../../models/task";
 import { registerTask } from "../../../api/taskApi";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+import { getTime } from "date-fns/getTime";
 
 function AddTask() {
   const resetForm: TaskType = {
@@ -58,7 +59,14 @@ function AddTask() {
   const submitTask = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const response = await registerTask(form);
+
+    const formCopy = { ...form };
+    let date = new Date(formCopy.deadline);
+    date.setHours(0, 0, 0, 0);
+    const newDate = getTime(date);
+    formCopy.deadline = newDate;
+
+    const response = await registerTask(formCopy);
     if (response.success) {
       setIsLoading(false);
       closeModal();

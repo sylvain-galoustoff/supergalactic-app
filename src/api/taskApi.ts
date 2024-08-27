@@ -12,6 +12,8 @@ import { apiResponseType } from "../models/apiResponse";
 import { store } from "../redux/store.ts";
 import { TaskType } from "../models/task.ts";
 import { storeTask } from "../redux/TaskSlice.ts";
+import { EventType } from "../models/event.ts";
+import { registerEvent } from "./eventApi.ts";
 
 export const observeTasks = () => {
   const unsubscribe = onSnapshot(collection(db, "tasks"), (snapshot) => {
@@ -28,8 +30,25 @@ export const registerTask = async (form: TaskType): Promise<apiResponseType> => 
     newDocument.id = id;
     newDocument.uid = store.getState().user.uid;
 
+    const projects = store.getState().projects;
+    const clientId = projects.find((project) => project.id === form.projectId)?.clientId;
+
+    const eventForm: EventType = {
+      uid: store.getState().user.uid,
+      id: Date.now().toString(),
+      eventName: newDocument.taskName,
+      date: newDocument.deadline,
+      time: "00:00",
+      taskId: id,
+      projectId: form.projectId,
+      clientId,
+    };
+
     try {
-      await setDoc(doc(db, "tasks", id), newDocument);
+      await Promise.all([
+        registerEvent(eventForm),
+        setDoc(doc(db, "tasks", id), newDocument),
+      ]);
       return {
         success: true,
         message: `Nouvelle tâche "${newDocument.taskName}" enregistré.`,

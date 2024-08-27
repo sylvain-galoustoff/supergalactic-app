@@ -1,14 +1,27 @@
+import { useEffect, useState } from "react";
 import { IoEllipse, IoArrowForwardOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { TaskType } from "../../../models/task";
 import TaskDeadline from "./TaskDeadline";
 import { DragEvent } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export type TaskCardProps = {
   task: TaskType;
 };
 
 function TaskCard({ task }: TaskCardProps) {
+  const projects = useSelector((state: RootState) => state.projects);
+  const [currentProject, setCurrentProject] = useState<string | undefined>("");
+
+  useEffect(() => {
+    const projectName = projects.find(
+      (project) => project.id === task.projectId
+    )?.projectName;
+    setCurrentProject(projectName);
+  }, []);
+
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData("text/plain", task.id);
     e.currentTarget.style.opacity = "0.5";
@@ -26,9 +39,10 @@ function TaskCard({ task }: TaskCardProps) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <h4 className="task-header">
-        <IoEllipse className="priority-icon primary" /> {task.taskName}
-      </h4>
+      <div className="task-header">
+        <h4 title={task.taskName}>{task.taskName}</h4>
+        <p className="small">{currentProject}</p>
+      </div>
       <div className="task-body">
         <p className={`task-description ${!task.description ? "italic" : null}`}>
           {task.description ? task.description : "Aucune note"}

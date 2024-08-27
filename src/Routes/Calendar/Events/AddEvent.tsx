@@ -5,9 +5,8 @@ import {
   IoCloseOutline,
   IoSparklesOutline,
   IoTextOutline,
-  IoTimeOutline,
 } from "react-icons/io5";
-import { Button, InputField, Select, useToast } from "simplegems";
+import { Button, InputField, Select, TimeField, useToast } from "simplegems";
 import { useModalContext } from "../../../context/ModalContext";
 import { EventType } from "../../../models/event";
 import { registerEvent } from "../../../api/eventApi";
@@ -25,7 +24,7 @@ function AddEvent({ date }: AddEventProps) {
     id: "",
     eventName: "",
     date: getTime(date),
-    hour: "00:00",
+    time: "00:00",
     taskId: "",
     projectId: "",
     clientId: "",
@@ -95,6 +94,12 @@ function AddEvent({ date }: AddEventProps) {
             type="text"
             value={form.eventName}
             onChange={(value) => updateForm(value, "eventName")}
+          />
+          <TimeField
+            id="event-time"
+            label="Horaire de l'événement"
+            value={form.time}
+            onChange={(value) => updateForm(value, "time")}
           />
           <Select
             id="select-project"

@@ -11,9 +11,17 @@ type CalendarCellProps = {
   year: number;
   today: number;
   selectedDate: number;
+  changeSelectedDate: (timestamp: number) => void;
 };
 
-function CalendarCell({ day, month, year, today, selectedDate }: CalendarCellProps) {
+function CalendarCell({
+  day,
+  month,
+  year,
+  today,
+  selectedDate,
+  changeSelectedDate,
+}: CalendarCellProps) {
   const events = useSelector((state: RootState) => state.events);
   const [hasEvent, setHasEvent] = useState<EventType[]>([]);
   const cellTimestamp = getTime(new Date(year, month, day));
@@ -26,7 +34,7 @@ function CalendarCell({ day, month, year, today, selectedDate }: CalendarCellPro
   }, [day, month, year]);
 
   const handleShowEvent = () => {
-    console.log("show event");
+    changeSelectedDate(cellTimestamp);
   };
 
   const renderEvents = hasEvent.map((_, index) => <EventIndicator key={index} />);

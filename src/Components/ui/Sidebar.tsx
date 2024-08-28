@@ -70,12 +70,6 @@ function Sidebar() {
               Calendrier
             </NavLink>
           </li>
-          <li>
-            <NavLink className="button navlink" to="/prospection">
-              <IoSearchOutline />
-              Prospection
-            </NavLink>
-          </li>
         </ul>
       </nav>
       <div id="user-menu">

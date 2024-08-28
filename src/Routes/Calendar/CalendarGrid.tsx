@@ -70,6 +70,7 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
       day={index}
       month={getMonth(selectedDate)}
       year={getYear(selectedDate)}
+      selectedDate={selectedDate}
       today={today}
     />
   ));

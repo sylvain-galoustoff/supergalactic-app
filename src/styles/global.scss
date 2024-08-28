@@ -461,6 +461,7 @@ main {
   aspect-ratio: 1;
   border-radius: 15px;
   color: $textAlt;
+  background-color: $card;
 
   span {
     position: relative;
@@ -469,10 +470,17 @@ main {
     font-weight: 700;
   }
 
-  &.today {
+}
+
+.today {
+  .day-number {
     background-color: $primary;
     color: $card;
   }
+}
+
+.selected {
+  background-color: $cardAlt;
 }
 
 .not-empty {

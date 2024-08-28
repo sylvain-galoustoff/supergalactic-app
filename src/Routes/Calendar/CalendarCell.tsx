@@ -10,14 +10,15 @@ type CalendarCellProps = {
   month: number;
   year: number;
   today: number;
+  selectedDate: number;
 };
 
-function CalendarCell({ day, month, year, today }: CalendarCellProps) {
+function CalendarCell({ day, month, year, today, selectedDate }: CalendarCellProps) {
   const events = useSelector((state: RootState) => state.events);
   const [hasEvent, setHasEvent] = useState<EventType[]>([]);
+  const cellTimestamp = getTime(new Date(year, month, day));
 
   useEffect(() => {
-    const cellTimestamp = getTime(new Date(year, month, day));
     const eventsOfTheDay = events.filter(
       (event) => Number(event.date) === Number(cellTimestamp)
     );
@@ -31,8 +32,13 @@ function CalendarCell({ day, month, year, today }: CalendarCellProps) {
   const renderEvents = hasEvent.map((_, index) => <EventIndicator key={index} />);
 
   return (
-    <div className="day calendar-cell not-empty" onClick={handleShowEvent}>
-      <p className={`day-number`}>
+    <div
+      className={`day calendar-cell not-empty ${today === cellTimestamp && "today"} ${
+        selectedDate === cellTimestamp && "selected"
+      }`}
+      onClick={handleShowEvent}
+    >
+      <p className="day-number">
         <span>{day}</span>
       </p>
       {hasEvent && <div className="events-indicators">{renderEvents}</div>}

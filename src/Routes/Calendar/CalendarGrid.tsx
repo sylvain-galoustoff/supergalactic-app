@@ -82,6 +82,9 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
 
   return (
     <div id="grid">
+      <div className="calendar-cell" id="grid-selected-date">
+        <h3 className="black">{format(new Date(selectedDate), "eeee do MMMM yyyy")}</h3>
+      </div>
       <div id="grid-month-selection">
         <div className="calendar-cell" id="month">
           <Select

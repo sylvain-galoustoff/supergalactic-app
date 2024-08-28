@@ -12,18 +12,17 @@ import { EventType } from "../../../models/event";
 import { registerEvent } from "../../../api/eventApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { getTime } from "date-fns/fp/getTime";
 
 type AddEventProps = {
-  date: Date;
+  selectedDate: number;
 };
 
-function AddEvent({ date }: AddEventProps) {
+function AddEvent({ selectedDate }: AddEventProps) {
   const resetForm: EventType = {
     uid: "",
     id: "",
     eventName: "",
-    date: getTime(date),
+    date: selectedDate,
     time: "00:00",
     taskId: "",
     projectId: "",

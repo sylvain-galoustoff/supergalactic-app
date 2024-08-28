@@ -31,7 +31,7 @@ function CalendarCell({
       (event) => Number(event.date) === Number(cellTimestamp)
     );
     setHasEvent(eventsOfTheDay);
-  }, [day, month, year]);
+  }, [events]);
 
   const handleShowEvent = () => {
     changeSelectedDate(cellTimestamp);

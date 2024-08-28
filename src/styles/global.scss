@@ -397,6 +397,19 @@ main {
   border-right: none;
 }
 
+#grid-selected-date {
+  height: 52px;
+  padding: $marge*4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $marge;
+
+  h3::first-letter {
+    text-transform: capitalize;
+  }
+}
+
 #grid-month-selection {
   grid-column-start: 1;
   grid-column-end: 8;
@@ -512,20 +525,14 @@ main {
   width: 33.33%;
 }
 
-#events-list-header {
-  @include card;
-  padding: $marge*4;
-  display: flex;
-  flex-direction: column;
-  gap: $marge;
-
-  h4::first-letter {
-    text-transform: capitalize;
-  }
-}
-
 .event-card {
   @include card;
+
+  .card-header {
+    height: 52px;
+    display: flex;
+    align-items: center;
+  }
 
   .card-body {
     padding: $marge*4;

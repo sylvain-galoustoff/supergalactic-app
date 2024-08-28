@@ -19,8 +19,8 @@ function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
   const sendToast = useToast();
 
-  const clientsColumns = ["projectName", "clientName"];
-  const clientsLabels = {
+  const projectsColumns = ["projectName", "clientName"];
+  const projectsLabels = {
     projectName: "Nom du projet",
     clientName: "Nom du client",
   };
@@ -44,8 +44,9 @@ function Projects() {
       });
     });
     const pool = Array.from(new Set(formatProjectsForDataSearch));
+
     setTermsPool(pool);
-  }, [projectsData]);
+  }, [rawData]);
 
   useEffect(() => {
     function findTermsInDataTable(term: string) {
@@ -104,8 +105,8 @@ function Projects() {
       <div className="zone content-zone">
         <DataTable
           rows={filteredData.length > 0 ? filteredData : rawData}
-          columns={clientsColumns}
-          labels={clientsLabels}
+          columns={projectsColumns}
+          labels={projectsLabels}
           deleteButton
           onDelete={handleDelete}
           onSubmitField={updateField}

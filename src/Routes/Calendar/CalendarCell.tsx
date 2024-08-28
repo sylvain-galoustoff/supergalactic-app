@@ -10,10 +10,9 @@ type CalendarCellProps = {
   month: number;
   year: number;
   today: number;
-  showEvents: (timestamp: number) => void;
 };
 
-function CalendarCell({ day, month, year, today, showEvents }: CalendarCellProps) {
+function CalendarCell({ day, month, year, today }: CalendarCellProps) {
   const events = useSelector((state: RootState) => state.events);
   const [hasEvent, setHasEvent] = useState<EventType[]>([]);
 
@@ -26,20 +25,14 @@ function CalendarCell({ day, month, year, today, showEvents }: CalendarCellProps
   }, [day, month, year]);
 
   const handleShowEvent = () => {
-    const cellDate = new Date(year, month, day);
-    const cellTimestamp = getTime(cellDate);
-    showEvents(cellTimestamp);
+    console.log("show event");
   };
 
   const renderEvents = hasEvent.map((_, index) => <EventIndicator key={index} />);
 
   return (
     <div className="day calendar-cell not-empty" onClick={handleShowEvent}>
-      <p
-        className={`day-number ${
-          today === getTime(new Date(year, month, day)) ? "today" : null
-        }`}
-      >
+      <p className={`day-number`}>
         <span>{day}</span>
       </p>
       {hasEvent && <div className="events-indicators">{renderEvents}</div>}

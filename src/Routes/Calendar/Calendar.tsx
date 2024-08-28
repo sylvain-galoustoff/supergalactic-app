@@ -2,11 +2,13 @@ import { useState } from "react";
 import PageHeader from "../../Components/ui/PageHeader/PageHeader";
 import Toolbar from "../../Components/ui/Toolbar";
 import CalendarGrid from "./CalendarGrid";
-import Events from "./Events/Events";
+import { getTime } from "date-fns";
 
 function Calendar() {
-  const [date, setDate] = useState(new Date());
-  const [eventsTimestamp, setEventsTimestamp] = useState<number | null>(null);
+  const today = getTime(new Date().setHours(0, 0, 0, 0));
+  const [selectedDate, setSelectedDate] = useState(
+    getTime(new Date().setHours(0, 0, 0, 0))
+  );
 
   return (
     <main id="calendar">
@@ -14,11 +16,10 @@ function Calendar() {
       <Toolbar />
       <div className="zone content-zone" id="calendar-zone">
         <CalendarGrid
-          date={date}
-          changeDate={(date) => setDate(date)}
-          showEvents={(timestamp) => setEventsTimestamp(timestamp)}
+          selectedDate={selectedDate}
+          today={today}
+          changeSelectedDate={(date) => setSelectedDate(date)}
         />
-        <Events timestamp={eventsTimestamp} />
       </div>
     </main>
   );

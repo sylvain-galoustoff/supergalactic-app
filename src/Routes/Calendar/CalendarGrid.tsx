@@ -13,51 +13,50 @@ import {
 import CalendarCell from "./CalendarCell";
 
 type CalendarGridProps = {
-  date: Date;
-  changeDate: (date: Date) => void;
-  showEvents: (timestamp: number) => void;
+  selectedDate: number;
+  today: number;
+  changeSelectedDate: (timestamp: number) => void;
 };
 
-function CalendarGrid({ date, changeDate, showEvents }: CalendarGridProps) {
+function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridProps) {
   const [month, setMonth] = useState("Janvier");
   const [year, setYear] = useState("2024");
   const [offset, setOffset] = useState(0);
   const [fillers, setFillers] = useState(0);
   const [days, setDays] = useState(30);
-  const today = getTime(new Date().setHours(0, 0, 0, 0));
 
   useEffect(() => {
-    const monthStart = startOfMonth(date);
+    const monthStart = startOfMonth(selectedDate);
     const offsetStart = Number(format(monthStart, "i")) - 1;
     setOffset(offsetStart);
 
-    const monthEnd = endOfMonth(date);
+    const monthEnd = endOfMonth(selectedDate);
     const offsetEnd = 7 - Number(format(monthEnd, "i"));
     setFillers(offsetEnd);
 
-    const daysInMonth = getDaysInMonth(date);
+    const daysInMonth = getDaysInMonth(selectedDate);
     setDays(daysInMonth);
-  }, [date]);
+  }, [selectedDate]);
 
   useEffect(() => {
-    const monthString = format(date, "MMMM");
+    const monthString = format(selectedDate, "MMMM");
     setMonth(monthString);
 
-    const yearString = format(date, "yyyy");
+    const yearString = format(selectedDate, "yyyy");
     setYear(yearString);
   }, []);
 
   const handleMonthChange = (newMonth: { [key: string]: string }) => {
     const newDate = new Date(Number(year), Number(newMonth.value) - 1, 1);
-    changeDate(newDate);
+    changeSelectedDate(getTime(newDate));
   };
 
   const handleYearChange = (newYear: string) => {
     setYear(newYear);
-    const formatMonth = format(date, "M");
+    const formatMonth = format(selectedDate, "M");
     const newDate = new Date(Number(newYear), Number(formatMonth) - 1, 1);
     if (newYear.length === 4) {
-      changeDate(newDate);
+      changeSelectedDate(getTime(newDate));
     }
   };
 
@@ -69,10 +68,9 @@ function CalendarGrid({ date, changeDate, showEvents }: CalendarGridProps) {
     <CalendarCell
       key={index}
       day={index}
-      month={getMonth(date)}
-      year={getYear(date)}
+      month={getMonth(selectedDate)}
+      year={getYear(selectedDate)}
       today={today}
-      showEvents={showEvents}
     />
   ));
 

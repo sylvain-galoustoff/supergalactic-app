@@ -15,9 +15,10 @@ import CalendarCell from "./CalendarCell";
 type CalendarGridProps = {
   date: Date;
   changeDate: (date: Date) => void;
+  showEvents: (timestamp: number) => void;
 };
 
-function CalendarGrid({ date, changeDate }: CalendarGridProps) {
+function CalendarGrid({ date, changeDate, showEvents }: CalendarGridProps) {
   const [month, setMonth] = useState("Janvier");
   const [year, setYear] = useState("2024");
   const [offset, setOffset] = useState(0);
@@ -71,6 +72,7 @@ function CalendarGrid({ date, changeDate }: CalendarGridProps) {
       month={getMonth(date)}
       year={getYear(date)}
       today={today}
+      showEvents={showEvents}
     />
   ));
 

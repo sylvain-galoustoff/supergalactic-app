@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useModalContext } from "../../context/ModalContext";
-import AddEvent from "./Events/AddEvent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getTime } from "date-fns";
@@ -12,10 +10,10 @@ type CalendarCellProps = {
   month: number;
   year: number;
   today: number;
+  showEvents: (timestamp: number) => void;
 };
 
-function CalendarCell({ day, month, year, today }: CalendarCellProps) {
-  const { setBox } = useModalContext();
+function CalendarCell({ day, month, year, today, showEvents }: CalendarCellProps) {
   const events = useSelector((state: RootState) => state.events);
   const [hasEvent, setHasEvent] = useState<EventType[]>([]);
 
@@ -27,14 +25,16 @@ function CalendarCell({ day, month, year, today }: CalendarCellProps) {
     setHasEvent(eventsOfTheDay);
   }, [day, month, year]);
 
-  const handleAddEvent = () => {
-    setBox(<AddEvent date={new Date(year, month, day)} />);
+  const handleShowEvent = () => {
+    const cellDate = new Date(year, month, day);
+    const cellTimestamp = getTime(cellDate);
+    showEvents(cellTimestamp);
   };
 
   const renderEvents = hasEvent.map((_, index) => <EventIndicator key={index} />);
 
   return (
-    <div className="day calendar-cell not-empty" onClick={handleAddEvent}>
+    <div className="day calendar-cell not-empty" onClick={handleShowEvent}>
       <p
         className={`day-number ${
           today === getTime(new Date(year, month, day)) ? "today" : null

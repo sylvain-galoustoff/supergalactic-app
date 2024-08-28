@@ -68,7 +68,7 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
     <CalendarCell
       key={index}
       day={index}
-      month={getMonth(selectedDate)}
+      month={getMonth(selectedDate) + 1}
       year={getYear(selectedDate)}
       selectedDate={selectedDate}
       today={today}

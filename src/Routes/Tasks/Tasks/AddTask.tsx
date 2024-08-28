@@ -18,6 +18,7 @@ function AddTask() {
     uid: "",
     id: "",
     projectId: "",
+    clientId: "",
     taskName: "",
     description: "",
     status: "backlog",

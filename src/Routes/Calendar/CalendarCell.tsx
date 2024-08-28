@@ -24,14 +24,15 @@ function CalendarCell({
 }: CalendarCellProps) {
   const events = useSelector((state: RootState) => state.events);
   const [hasEvent, setHasEvent] = useState<EventType[]>([]);
-  const cellTimestamp = getTime(new Date(year, month, day));
+  const cellTimestamp = getTime(new Date(year, month - 1, day));
 
   useEffect(() => {
+    const cellTimestamp = getTime(new Date(year, month - 1, day));
     const eventsOfTheDay = events.filter(
       (event) => Number(event.date) === Number(cellTimestamp)
     );
     setHasEvent(eventsOfTheDay);
-  }, [events]);
+  }, [events, year, month, day]);
 
   const handleShowEvent = () => {
     changeSelectedDate(cellTimestamp);

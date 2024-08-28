@@ -7,8 +7,9 @@ function NoEventCard() {
         <h4 className="black">Aucun événement</h4>
         <p className="help">
           <span>Sélectionnez un date contenant</span>
-          <EventIndicator />
-          <span>un événement</span>
+          <span className="indicator-in-no-event">
+            <EventIndicator /> un événement
+          </span>
         </p>
       </div>
     </div>

@@ -41,7 +41,7 @@ export const registerTask = async (form: TaskType): Promise<apiResponseType> => 
       time: "00:00",
       taskId: id,
       projectId: form.projectId,
-      clientId,
+      clientId: clientId ? clientId : "",
     };
 
     try {

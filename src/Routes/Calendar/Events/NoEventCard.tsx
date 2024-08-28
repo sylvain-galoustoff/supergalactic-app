@@ -1,9 +1,15 @@
+import EventIndicator from "./EventIndicator";
+
 function NoEventCard() {
   return (
     <div className="event-card no-event">
       <div className="card-body">
-        <h4 className="black">Aucun événement à afficher</h4>
-        <p className="help">Sélectionnez un date contenant au moins un événement</p>
+        <h4 className="black">Aucun événement</h4>
+        <p className="help">
+          <span>Sélectionnez un date contenant</span>
+          <EventIndicator />
+          <span>un événement</span>
+        </p>
       </div>
     </div>
   );

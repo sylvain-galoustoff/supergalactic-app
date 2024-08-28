@@ -561,12 +561,29 @@ main {
   box-shadow: none;
   height: 100%;
   background-color: transparent;
-  opacity: .5;
 
   .card-body {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  h4 {
+    opacity: .5;
+  }
+
+  .help {
+    display: flex;
+    align-items: center;
+    gap: $marge;
+
+    span {
+      opacity: .5;
+    }
+
+    .has-event {
+      opacity: 1;
+    }
   }
 }

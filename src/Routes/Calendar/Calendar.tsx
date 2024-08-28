@@ -3,6 +3,7 @@ import PageHeader from "../../Components/ui/PageHeader/PageHeader";
 import Toolbar from "../../Components/ui/Toolbar";
 import CalendarGrid from "./CalendarGrid";
 import { getTime } from "date-fns";
+import Events from "./Events/Events";
 
 function Calendar() {
   const today = getTime(new Date().setHours(0, 0, 0, 0));
@@ -20,6 +21,7 @@ function Calendar() {
           today={today}
           changeSelectedDate={(date) => setSelectedDate(date)}
         />
+        <Events selectedDate={selectedDate} />
       </div>
     </main>
   );

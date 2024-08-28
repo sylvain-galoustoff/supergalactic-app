@@ -208,7 +208,9 @@ label {
 [type="text"],
 [type="email"],
 [type="password"],
-select {
+select,
+textarea {
+  font-family: $font;
   font-size: 1rem;
   color: $text;
   padding: $marge*4;
@@ -246,6 +248,7 @@ table {
   gap: $marge*2;
   padding: $marge * 4;
   border-bottom: 1px solid $bg;
+  background-color: $cardAlt;
 
   svg {
     position: relative;

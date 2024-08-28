@@ -7,22 +7,22 @@ import NoEventCard from "./NoEventCard";
 import { format } from "date-fns";
 
 type EventsProps = {
-  timestamp: number | null;
+  selectedDate: number | null;
 };
 
-function Events({ timestamp }: EventsProps) {
+function Events({ selectedDate }: EventsProps) {
   const events = useSelector((state: RootState) => state.events);
   const [dayEvents, setDayEvents] = useState<EventType[]>([]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [dateString, setDateString] = useState("");
 
   useEffect(() => {
-    const cellEvents = events.filter((event) => event.date === timestamp);
+    const cellEvents = events.filter((event) => event.date === selectedDate);
     setDayEvents(cellEvents);
 
-    if (timestamp) {
-      setSelectedDate(format(new Date(timestamp), "eeee do MMMM yyyy"));
+    if (selectedDate) {
+      setDateString(format(new Date(selectedDate), "eeee do MMMM yyyy"));
     }
-  }, [events, timestamp]);
+  }, [events, selectedDate]);
 
   const renderCards = dayEvents.map((event, index) => (
     <EventCard key={index} event={event} />
@@ -30,12 +30,10 @@ function Events({ timestamp }: EventsProps) {
 
   return (
     <div id="events">
-      {selectedDate && (
-        <div id="events-list-header">
-          <p className="help">Date sélectionée</p>
-          <h4 className="black">{selectedDate}</h4>
-        </div>
-      )}
+      <div id="events-list-header">
+        <p className="help">Date sélectionée</p>
+        <h4 className="black">{dateString}</h4>
+      </div>
       {dayEvents.length > 0 ? renderCards : <NoEventCard />}
     </div>
   );

@@ -290,6 +290,7 @@ main {
 }
 
 .task-header {
+  background-color: $cardAlt;
   padding: $marge*4;
   height: 75px;
   display: flex;
@@ -517,6 +518,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: $marge;
+
+  h4::first-letter {
+    text-transform: capitalize;
+  }
 }
 
 .event-card {

@@ -226,6 +226,12 @@ main {
   }
 }
 
+#table-search-input-group {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid $bg;
+}
+
 #table-search-results {
   @include shadow;
   max-height: 189px;

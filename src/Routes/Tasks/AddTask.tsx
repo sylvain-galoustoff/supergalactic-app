@@ -6,10 +6,10 @@ import {
   IoSparklesOutline,
 } from "react-icons/io5";
 import { Button, InputField, Select, TextArea, useToast, InputDate } from "simplegems";
-import { useModalContext } from "../../../context/ModalContext";
-import { TaskType } from "../../../models/task";
-import { registerTask } from "../../../api/taskApi";
-import { RootState } from "../../../redux/store";
+import { useModalContext } from "../../context/ModalContext";
+import { TaskType } from "../../models/task";
+import { registerTask } from "../../api/taskApi";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { getTime } from "date-fns/getTime";
 

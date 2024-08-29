@@ -1,7 +1,7 @@
 import { DragEvent, useEffect, useState } from "react";
-import { TaskType } from "../../../models/task";
+import { TaskType } from "../../models/task";
 import TaskCard from "./TaskCard";
-import { patchTask } from "../../../api/taskApi";
+import { patchTask } from "../../api/taskApi";
 import { useToast } from "simplegems";
 
 export type TaskColumnType = {

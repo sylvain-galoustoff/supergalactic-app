@@ -1,10 +1,10 @@
 import { IoListOutline } from "react-icons/io5";
-import PageHeader from "../../../Components/ui/PageHeader/PageHeader";
-import Toolbar from "../../../Components/ui/Toolbar";
+import PageHeader from "../../Components/ui/PageHeader/PageHeader";
+import Toolbar from "../../Components/ui/Toolbar";
 import AddTask from "./AddTask";
-import ModalButton from "../../../Components/ui/Modals/ModalButton";
+import ModalButton from "../../Components/ui/Modals/ModalButton";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 import TaskColumn from "./TaskColumn";
 
 function Tasks() {

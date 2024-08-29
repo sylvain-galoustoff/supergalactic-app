@@ -293,6 +293,19 @@ main {
 
 .task-card {
   @include card;
+
+  button {
+    padding: 0;
+    justify-content: flex-end;
+    font-weight: 400;
+    color: $textAlt;
+    font-size: .9rem;
+
+    svg {
+      position: relative;
+      top: 0;
+    }
+  }
 }
 
 .task-header {
@@ -334,6 +347,7 @@ main {
 }
 
 .task-description {
+  height: 42px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

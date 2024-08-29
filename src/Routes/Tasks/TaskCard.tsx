@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { IoEllipse, IoArrowForwardOutline } from "react-icons/io5";
+import { IoArrowForwardOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { TaskType } from "../../../models/task";
+import { TaskType } from "../../models/task";
 import TaskDeadline from "./TaskDeadline";
 import { DragEvent } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 
 export type TaskCardProps = {
   task: TaskType;
@@ -44,15 +44,15 @@ function TaskCard({ task }: TaskCardProps) {
         <p className="small">{currentProject}</p>
       </div>
       <div className="task-body">
+        <TaskDeadline deadline={task.deadline} />
         <p className={`task-description ${!task.description ? "italic" : null}`}>
           {task.description ? task.description : "Aucune note"}
         </p>
-        <TaskDeadline deadline={task.deadline} />
       </div>
       <div className="task-footer">
-        <Link to={`/taches/${task.id}`}>
+        <button type="button">
           Détails <IoArrowForwardOutline />
-        </Link>
+        </button>
       </div>
     </div>
   );

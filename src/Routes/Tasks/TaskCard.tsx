@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoArrowForwardOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { TaskType } from "../../models/task";
 import TaskDeadline from "./TaskDeadline";
 import { DragEvent } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useModalContext } from "../../context/ModalContext";
+import TaskDetails from "./TaskDetails";
 
 export type TaskCardProps = {
   task: TaskType;
@@ -14,6 +15,7 @@ export type TaskCardProps = {
 function TaskCard({ task }: TaskCardProps) {
   const projects = useSelector((state: RootState) => state.projects);
   const [currentProject, setCurrentProject] = useState<string | undefined>("");
+  const { setBox } = useModalContext();
 
   useEffect(() => {
     const projectName = projects.find(
@@ -30,6 +32,10 @@ function TaskCard({ task }: TaskCardProps) {
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
     e.currentTarget.style.opacity = "1";
+  };
+
+  const showDetails = () => {
+    setBox(<TaskDetails task={task} />);
   };
 
   return (
@@ -50,7 +56,7 @@ function TaskCard({ task }: TaskCardProps) {
         </p>
       </div>
       <div className="task-footer">
-        <button type="button">
+        <button type="button" onClick={showDetails}>
           Détails <IoArrowForwardOutline />
         </button>
       </div>

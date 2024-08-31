@@ -11,6 +11,7 @@ import {
   getTime,
 } from "date-fns";
 import CalendarCell from "./CalendarCell";
+import EventIndicator from "./Events/EventIndicator";
 
 type CalendarGridProps = {
   selectedDate: number;
@@ -84,6 +85,14 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
     <div id="grid">
       <div className="calendar-cell" id="grid-selected-date">
         <h3 className="black">{format(new Date(selectedDate), "eeee do MMMM yyyy")}</h3>
+        <div className="calendar-legend">
+          <p className="help calendar-legend-item">
+            <EventIndicator source="calendar" /> Evénement
+          </p>
+          <p className="help calendar-legend-item">
+            <EventIndicator source="task" /> Tâche
+          </p>
+        </div>
       </div>
       <div id="grid-month-selection">
         <div className="calendar-cell" id="month">

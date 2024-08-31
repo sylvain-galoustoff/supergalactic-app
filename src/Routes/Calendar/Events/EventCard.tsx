@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { EventType } from "../../../models/event";
 import { RootState } from "../../../redux/store";
 import { IoTimeOutline } from "react-icons/io5";
+import EventIndicator from "./EventIndicator";
 
 type EventCardProps = {
   event: EventType;
@@ -14,13 +15,17 @@ function EventCard({ event }: EventCardProps) {
   return (
     <div className="event-card">
       <div className="card-header">
-        <p className="event-time help black">
-          <IoTimeOutline />
-          {event.time}
-        </p>
+        <EventIndicator source={event.taskId ? "task" : "calendar"} />
+        <p className="help black">{event.taskId ? "Tâche" : "Evénement"}</p>
       </div>
       <div className="card-body">
-        <h4 className="black">{event.eventName}</h4>
+        <div className="event-line">
+          <h4 className="black">{event.eventName}</h4>
+          <p className="event-time help black">
+            <IoTimeOutline />
+            {event.time}
+          </p>
+        </div>
         <p className="event-project-name">{currentProject?.projectName}</p>
       </div>
     </div>

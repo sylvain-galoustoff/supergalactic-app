@@ -38,7 +38,9 @@ function CalendarCell({
     changeSelectedDate(cellTimestamp);
   };
 
-  const renderEvents = hasEvent.map((_, index) => <EventIndicator key={index} />);
+  const renderEvents = hasEvent.map((event, index) => (
+    <EventIndicator source={event.taskId ? "task" : "calendar"} key={index} />
+  ));
 
   return (
     <div

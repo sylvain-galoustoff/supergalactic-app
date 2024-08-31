@@ -470,13 +470,25 @@ main {
   height: 52px;
   padding: $marge*4;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   gap: $marge;
 
   h3::first-letter {
     text-transform: capitalize;
   }
+}
+
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: $marge*2;
+}
+
+.calendar-legend-item {
+  display: flex;
+  align-items: center;
+  gap: $marge;
 }
 
 #grid-month-selection {
@@ -587,7 +599,14 @@ main {
   width: 10px;
   aspect-ratio: 1;
   border-radius: 10px;
-  background-color: $primary;
+
+  &.calendar {
+    background-color: $primary;
+  }
+
+  &.task {
+    background-color: $warning;
+  }
 }
 
 #events {
@@ -620,6 +639,12 @@ main {
     position: relative;
     top: -1px;
   }
+}
+
+.event-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .event-project-name {

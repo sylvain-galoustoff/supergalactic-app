@@ -15,8 +15,8 @@ function EventCard({ event }: EventCardProps) {
   return (
     <div className="event-card">
       <div className="card-header">
-        <EventIndicator source={event.taskId ? "task" : "calendar"} />
-        <p className="help black">{event.taskId ? "Tâche" : "Evénement"}</p>
+        <EventIndicator source={event.taskId ? "task" : "calendar"} withLabel />
+        {/* <p className="help black">{event.taskId ? "Tâche" : "Evénement"}</p> */}
       </div>
       <div className="card-body">
         <div className="event-line">

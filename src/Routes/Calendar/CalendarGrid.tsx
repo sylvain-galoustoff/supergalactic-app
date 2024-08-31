@@ -86,12 +86,8 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
       <div className="calendar-cell" id="grid-selected-date">
         <h3 className="black">{format(new Date(selectedDate), "eeee do MMMM yyyy")}</h3>
         <div className="calendar-legend">
-          <p className="help calendar-legend-item">
-            <EventIndicator source="calendar" /> Evénement
-          </p>
-          <p className="help calendar-legend-item">
-            <EventIndicator source="task" /> Tâche
-          </p>
+          <EventIndicator source="calendar" withLabel />
+          <EventIndicator source="task" withLabel />
         </div>
       </div>
       <div id="grid-month-selection">

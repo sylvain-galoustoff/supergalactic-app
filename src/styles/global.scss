@@ -482,13 +482,11 @@ main {
 .calendar-legend {
   display: flex;
   align-items: center;
-  gap: $marge*2;
-}
+  gap: $marge*4;
 
-.calendar-legend-item {
-  display: flex;
-  align-items: center;
-  gap: $marge;
+  .event-indicator-icon {
+    top: -1px;
+  }
 }
 
 #grid-month-selection {
@@ -594,11 +592,18 @@ main {
   right: $marge*2;
 }
 
-.has-event {
+.event-indicator {
+  display: flex;
+  align-items: center;
+  gap: $marge;
+}
+
+.event-indicator-icon {
   display: block;
   width: 10px;
   aspect-ratio: 1;
   border-radius: 10px;
+  position: relative;
 
   &.calendar {
     background-color: $primary;
@@ -620,6 +625,10 @@ main {
     height: 52px;
     display: flex;
     align-items: center;
+
+    .event-indicator-icon {
+      top: -1px;
+    }
   }
 
   .card-body {
@@ -677,7 +686,7 @@ main {
       opacity: .5;
     }
 
-    .has-event {
+    .event-indicator-icon {
       opacity: 1;
     }
   }

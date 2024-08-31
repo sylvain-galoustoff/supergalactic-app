@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Toaster, useToastsList } from "simplegems";
+import { DebugDate, Toaster, useToastsList } from "simplegems";
 import { useModalContext } from "../context/ModalContext";
 import { useDispatch } from "react-redux";
 import { observeClients } from "../api/clientApi";
@@ -56,6 +56,7 @@ function Layout() {
         id="toaster"
       />
       {box && <Modal box={box} />}
+      <DebugDate />
     </div>
   );
 }

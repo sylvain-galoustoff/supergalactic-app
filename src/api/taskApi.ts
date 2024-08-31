@@ -6,7 +6,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { ClientType } from "../models/client";
 import { db } from "../firebase.ts";
 import { apiResponseType } from "../models/apiResponse";
 import { store } from "../redux/store.ts";
@@ -90,38 +89,51 @@ export const patchTask = async (
   }
 };
 
-export const updateClient = async (payload: ClientType): Promise<apiResponseType> => {
-  const docRef = doc(db, "clients", payload.id);
+export const updateTask = async (payload: TaskType): Promise<apiResponseType> => {
+  const docRef = doc(db, "tasks", payload.id);
 
   try {
     await updateDoc(docRef, payload);
     return {
       success: true,
-      message: `le client ${payload.clientName} a été modifié.`,
+      message: `la tâche ${payload.taskName} a été modifiée.`,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "Echec de mise à jour du client " + payload.id,
+      message: "Echec de mise à jour de la tâche " + payload.id,
     };
   }
 };
 
-export const deleteClient = async (client: ClientType): Promise<apiResponseType> => {
+export const deleteTask = async (task: TaskType): Promise<apiResponseType> => {
   try {
-    const docRef = doc(db, "clients", client.id);
+    const docRef = doc(db, "tasks", task.id);
     await deleteDoc(docRef);
     return {
       success: true,
-      message: `Le client ${client.clientName} a été supprimé.`,
+      message: `La tâche ${task.taskName} a été supprimé.`,
     };
   } catch (error) {
-    console.error("Erreur de suppression du document " + client.id);
+    console.error("Erreur de suppression du document " + task.id);
     console.error(error);
     return {
       success: false,
       message: `Erreur serveur : la suppression a échoué.`,
     };
+  }
+};
+
+/* FETCH STORE */
+
+export const getProjectNameFromProjectId = (projectId: string) => {
+  const projectsStore = store.getState().projects;
+  const query = projectsStore.find((project) => project.id === projectId);
+
+  if (query) {
+    return query.projectName;
+  } else {
+    return "Aucun projet";
   }
 };

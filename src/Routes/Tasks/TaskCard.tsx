@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
-import { IoArrowForwardOutline } from "react-icons/io5";
+import { IoArrowForwardOutline, IoCreateOutline, IoTrashOutline } from "react-icons/io5";
 import { TaskType } from "../../models/task";
 import TaskDeadline from "./TaskDeadline";
 import { DragEvent } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { useModalContext } from "../../context/ModalContext";
 import TaskDetails from "./TaskDetails";
+import { deleteTask, getProjectNameFromProjectId } from "../../api/taskApi";
+import { Button, useToast } from "simplegems";
+import ModalButton from "../../Components/ui/Modals/ModalButton";
+import EditTask from "./EditTask";
 
 export type TaskCardProps = {
   task: TaskType;
 };
 
 function TaskCard({ task }: TaskCardProps) {
-  const projects = useSelector((state: RootState) => state.projects);
   const [currentProject, setCurrentProject] = useState<string | undefined>("");
   const { setBox } = useModalContext();
+  const sendToast = useToast();
 
   useEffect(() => {
-    const projectName = projects.find(
-      (project) => project.id === task.projectId
-    )?.projectName;
+    const projectName = getProjectNameFromProjectId(task.projectId);
     setCurrentProject(projectName);
-  }, []);
+  }, [task]);
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData("text/plain", task.id);
@@ -36,6 +36,18 @@ function TaskCard({ task }: TaskCardProps) {
 
   const showDetails = () => {
     setBox(<TaskDetails task={task} />);
+  };
+
+  const closeModal = () => {
+    setBox(null);
+  };
+
+  const handleDeleteTask = async () => {
+    const response = await deleteTask(task);
+    if (response.success) {
+      closeModal();
+      sendToast("success", response.message);
+    }
   };
 
   return (
@@ -56,9 +68,26 @@ function TaskCard({ task }: TaskCardProps) {
         </p>
       </div>
       <div className="task-footer">
-        <button type="button" onClick={showDetails}>
-          Détails <IoArrowForwardOutline />
-        </button>
+        <div className="action-left">
+          <Button
+            label="Supprimer"
+            iconBefore={<IoTrashOutline />}
+            variant="danger"
+            onClick={handleDeleteTask}
+          />
+          <ModalButton
+            label="Modifier"
+            icon={<IoCreateOutline />}
+            modal={<EditTask task={task} />}
+          />
+        </div>
+        <div className="action-right">
+          <Button
+            label="Détails"
+            iconAfter={<IoArrowForwardOutline />}
+            onClick={showDetails}
+          />
+        </div>
       </div>
     </div>
   );

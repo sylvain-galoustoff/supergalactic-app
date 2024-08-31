@@ -359,27 +359,32 @@ main {
   padding: $marge*4;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-size: .8rem;
+}
 
-  a {
-    color: $textAlt;
-    text-decoration: none;
+.action-left,
+.action-right {
+  display: flex;
+  gap: $marge*2;
 
-    &:hover {
-      color: $primary;
+  button {
+    gap: $marge;
 
-      svg {
-        transform: translateX(3px) scale(1.1);
-      }
+    svg {
+      position: relative;
+      top: -1px;
     }
   }
 
-  svg {
-    @include trans;
-    position: relative;
-    top: 2px;
+  button[class*="danger"] {
+    color: $danger;
+    background-color: transparent;
   }
+}
+
+.action-right {
+  margin-left: auto;
 }
 
 #select-project-options {

@@ -4,9 +4,10 @@ type ModalButtonType = {
   label: string;
   icon: JSX.Element;
   modal: JSX.Element;
+  variant?: "primary" | "success" | "warning" | "danger";
 };
 
-function ModalButton({ label, icon, modal }: ModalButtonType) {
+function ModalButton({ label, icon, modal, variant }: ModalButtonType) {
   const { setBox } = useModalContext();
 
   const openModal = () => {
@@ -14,7 +15,7 @@ function ModalButton({ label, icon, modal }: ModalButtonType) {
   };
 
   return (
-    <button type="button" onClick={openModal}>
+    <button type="button" className={variant ? variant : undefined} onClick={openModal}>
       {icon}
       {label}
     </button>

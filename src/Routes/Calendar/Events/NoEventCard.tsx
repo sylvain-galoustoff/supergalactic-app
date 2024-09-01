@@ -5,12 +5,12 @@ function NoEventCard() {
     <div className="event-card no-event">
       <div className="card-body">
         <h4 className="black">Aucun événement</h4>
-        <p className="help">
+        <div className="help">
           <span>Sélectionnez un date contenant</span>
           <span className="indicator-in-no-event">
-            <EventIndicator /> un événement
+            <EventIndicator source="calendar" /> un événement
           </span>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Select, InputField } from "simplegems";
+import { Select, InputField, SliderSelect } from "simplegems";
 import { monthSelectOption } from "./calendarConfig";
 import { useEffect, useState } from "react";
 import {
@@ -92,12 +92,12 @@ function CalendarGrid({ selectedDate, today, changeSelectedDate }: CalendarGridP
       </div>
       <div id="grid-month-selection">
         <div className="calendar-cell" id="month">
-          <Select
-            data={monthSelectOption}
+          {/* <SliderSelect
+            options={monthSelectOption}
             id="month-selector"
             defaultValue={month}
             onChange={handleMonthChange}
-          />
+          /> */}
         </div>
         <div className="calendar-cell" id="year">
           <InputField

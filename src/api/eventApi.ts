@@ -68,16 +68,16 @@ export const updateClient = async (payload: ClientType): Promise<apiResponseType
   }
 };
 
-export const deleteClient = async (client: ClientType): Promise<apiResponseType> => {
+export const deleteEvent = async (event: EventType): Promise<apiResponseType> => {
   try {
-    const docRef = doc(db, "clients", client.id);
+    const docRef = doc(db, "events", event.id);
     await deleteDoc(docRef);
     return {
       success: true,
-      message: `Le client ${client.clientName} a été supprimé.`,
+      message: `L'événement "${event.eventName}" a été supprimé.`,
     };
   } catch (error) {
-    console.error("Erreur de suppression du document " + client.id);
+    console.error("Erreur de suppression du document " + event.id);
     console.error(error);
     return {
       success: false,
